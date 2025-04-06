@@ -2,7 +2,7 @@
 description: "CursorRIPER Framework - Core"
 globs: 
 alwaysApply: true
-version: "1.0.2"
+version: "1.0.3"
 date_created: "2025-04-05"
 last_updated: "2025-04-06"
 framework_component: "core"
@@ -11,8 +11,9 @@ scope: "always_load"
 ---
 <!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
 
+
 # CursorRIPER Framework - Core
-# Version 1.0.2
+# Version 1.0.3
 
 ## AI PROCESSING INSTRUCTIONS
 This is the core component of the CursorRIPER Framework. As an AI assistant, you MUST:
@@ -109,6 +110,65 @@ When a mode change command is detected:
 2. Begin operating according to the new mode's specification
 3. Acknowledge the mode change in your response
 
+## @ SYMBOL INTEGRATION
+
+### Symbol Detection and Suggestion
+
+When processing user messages, detect opportunities to suggest relevant @ symbols:
+
+1. **File References Detection**:
+   - Pattern: "in the file [filename]" or "look at [filename]"
+   - Suggestion: "You can reference this directly with `@Files:[filename]`"
+
+2. **Code Symbol Detection**:
+   - Pattern: "the function [name]" or "class [name]"
+   - Suggestion: "You can reference this symbol with `@Code:[name]`"
+
+3. **Directory References Detection**:
+   - Pattern: "in the [directory] folder" or "files in [directory]"
+   - Suggestion: "You can browse this directory with `@Folders:[directory]`"
+
+4. **Documentation References Detection**:
+   - Pattern: "the docs for [topic]" or "how to use [feature]"
+   - Suggestion: "You can access this documentation with `@Docs:[topic]`"
+
+5. **Web References Detection**:
+   - Pattern: "find information about [topic]" or "research [topic]"
+   - Suggestion: "You can search the web with `@Web:[topic]`"
+
+6. **Git History Detection**:
+   - Pattern: "recent changes to [file]" or "commit history"
+   - Suggestion: "You can view the git history with `@Git:[file]`"
+
+### Symbol Usage Optimization
+
+To maintain optimal performance with @ symbols:
+
+1. **Large File Handling**:
+   - For files >1000 lines, suggest `@Code:[symbol]` instead of `@Files:[file]`
+   - Example: "For large files like this, consider using `@Code:specificFunction` to focus on relevant sections"
+
+2. **Directory Size Awareness**:
+   - For directories with >50 files, suggest narrower scope
+   - Example: "This is a large directory. Consider `@Folders:src/components/specific` for better performance"
+
+3. **Progressive Loading**:
+   - Suggest loading symbols incrementally rather than all at once
+   - Example: "Let's first look at `@Files:core.js`, then examine related files"
+
+### Symbol Context Persistence
+
+To maintain context across interactions:
+
+1. **Key Context Tracking**:
+   - Track important @ symbols referenced in the conversation
+   - Suggest updating memory bank when key symbols are identified
+   - Example: "This seems to be a key file. Would you like me to add it to the @ symbol registry?"
+
+2. **Context Switching**:
+   - When changing topics, suggest appropriate @ symbols
+   - Example: "Now that we're looking at authentication, you might want to reference `@Folders:src/auth`"
+
 ## SAFETY PROTOCOLS
 
 ### Destructive Operation Protection
@@ -148,7 +208,8 @@ memory-bank/
 ├── systemPatterns.md      # System architecture and key technical decisions
 ├── techContext.md         # Technologies used and development setup
 ├── activeContext.md       # Current work focus and next steps
-└── progress.md            # What works, what's left to build, and known issues
+├── progress.md            # What works, what's left to build, and known issues
+└── @-symbol-registry.md   # Registry of important project @ symbols for context reference
 ```
 
 ## FRAMEWORK INTEGRATION
@@ -158,6 +219,7 @@ The CursorRIPER Framework integrates with Cursor IDE through:
 2. Maintaining project state across sessions via memory bank
 3. Processing user commands to change modes and phases
 4. Following strict operational workflows for each mode
+5. Leveraging Cursor's @ symbol functionality for enhanced context reference
 
 ---
 
