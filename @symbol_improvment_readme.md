@@ -1,3 +1,4 @@
+![CursorRIPER](./res/github-header.png)
 # CursorRIPER Framework - @ Symbol Enhancement
 
 This readme contains the implementation of the @ symbol enhancement branch for the CursorRIPER Framework. This enhancement integrates Cursor IDE's powerful @ symbol functionality throughout the framework to improve context referencing while preserving the core RIPER workflow.
