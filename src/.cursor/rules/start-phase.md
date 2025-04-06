@@ -1,7 +1,5 @@
 ---
-description: "CursorRIPER Framework - START Phase"
-globs: 
-alwaysApply: false
+title: "CursorRIPER Framework - START Phase"
 version: "1.0.1"
 date_created: "2025-04-05"
 last_updated: "2025-04-06"
@@ -10,7 +8,7 @@ priority: "high"
 scope: "initialization"
 archive_after_completion: true
 ---
-<!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
+
 # CursorRIPER Framework - START Phase
 # Version 1.0.1
 
@@ -45,6 +43,49 @@ flowchart TD
 - **Entry Point**: User command "BEGIN START PHASE" or "/start"
 - **Exit Point**: Automatic transition to RESEARCH mode after setup is complete
 
+## @ SYMBOL INTEGRATION DURING START PHASE
+
+Each step of the START phase will introduce relevant @ symbols progressively:
+
+### Step 1: Requirements Gathering
+**Relevant @ Symbols:**
+- `@Web:[search-term]` - Research similar projects and industry standards
+- `@Docs:cursor-best-practices` - Review best practices for project structure
+
+**Introduction:** "As we gather requirements, we can use @ symbols to research similar projects and industry standards."
+
+### Step 2: Technology Selection
+**Relevant @ Symbols:**
+- `@Web:[technology-name]` - Research potential technologies
+- `@Docs:[framework-name]` - Access documentation for candidate frameworks
+- `@Files:package.json` - Review existing dependencies (if applicable)
+
+**Introduction:** "When selecting technologies, @ symbols help us access documentation and research options efficiently."
+
+### Step 3: Architecture Definition
+**Relevant @ Symbols:**
+- `@Folders:[existing-project]` - Reference similar project structures
+- `@Files:[architecture-diagram]` - Reference architectural diagrams
+- `@Docs:architecture-patterns` - Access documentation on architectural patterns
+
+**Introduction:** "For architecture definition, @ symbols let us reference existing patterns and best practices."
+
+### Step 4: Project Scaffolding
+**Relevant @ Symbols:**
+- `@Folders:[directory]` - Create and verify folder structure
+- `@Files:[config-file]` - Set up configuration files
+- `@Git:init` - Initialize version control (if applicable)
+
+**Introduction:** "During scaffolding, @ symbols help us navigate and create the project structure."
+
+### Step 5: Environment Setup
+**Relevant @ Symbols:**
+- `@Files:[env-config]` - Set up environment configuration
+- `@Docs:[testing-framework]` - Reference testing framework documentation
+- `@Files:Dockerfile` - Set up containerization (if applicable)
+
+**Introduction:** "When setting up the environment, @ symbols provide access to configuration examples and documentation."
+
 ## STEP-BY-STEP INITIALIZATION
 
 ### Step 1: Requirements Gathering
@@ -60,6 +101,7 @@ flowchart TD
   - What are the technical constraints?
   - What is the timeline for completion?
 - **Output**: Create projectbrief.md with gathered requirements
+- **@ Symbol Usage**: Introduce `@Web` and `@Docs` for initial research
 
 ### Step 2: Technology Selection
 - Assess technology options based on requirements
@@ -74,6 +116,7 @@ flowchart TD
   - Are there any specific performance requirements?
   - What testing frameworks should be used?
 - **Output**: Add technology decisions to techContext.md
+- **@ Symbol Usage**: Use `@Web` and `@Docs` to research technologies
 
 ### Step 3: Architecture Definition
 - Define high-level system architecture
@@ -88,6 +131,7 @@ flowchart TD
   - How will the system scale?
   - What security considerations need to be addressed?
 - **Output**: Create systemPatterns.md with architecture definition
+- **@ Symbol Usage**: Reference existing patterns with `@Folders` and `@Files`
 
 ### Step 4: Project Scaffolding
 - Set up initial folder structure
@@ -102,6 +146,7 @@ flowchart TD
   - Create initial configuration files
   - Set up basic build process
 - **Output**: Create project scaffold according to defined structure
+- **@ Symbol Usage**: Use `@Folders` and `@Files` to navigate and create structure
 
 ### Step 5: Environment Setup
 - Configure development environment
@@ -115,6 +160,7 @@ flowchart TD
   - Define CI/CD pipeline
   - Document deployment process
 - **Output**: Update techContext.md with environment setup details
+- **@ Symbol Usage**: Reference configuration files with `@Files`
 
 ### Step 6: Memory Bank Initialization
 - Create and populate all core memory files:
@@ -124,12 +170,22 @@ flowchart TD
   - activeContext.md
   - progress.md
 - Establish initial project intelligence files
+- **New Sub-step 6.1: @ Symbol Discovery**
+  - Scan project structure to identify key files and folders
+  - Create initial @ symbol registry
+  - Document discovered symbols in memory bank
+- **New Sub-step 6.2: @ Symbol Registry Setup**
+  - Create @-symbol-registry.md in memory bank
+  - Populate with key project symbols
+  - Link symbols to project components
 - **Key Actions**:
   - Create memory-bank directory structure
   - Create and populate all core memory files
   - Document initial state in activeContext.md
   - Set up progress.md with initial tasks
+  - Create and populate @-symbol-registry.md
 - **Output**: Complete memory bank with all required files
+- **@ Symbol Usage Introduction**: "The @ symbol registry will help maintain context across sessions, providing quick access to key project resources."
 
 ## MEMORY BANK TEMPLATES
 
@@ -171,6 +227,11 @@ flowchart TD
 - [STAKEHOLDER_1]: [ROLE]
 - [STAKEHOLDER_2]: [ROLE]
 
+## Recommended @ Symbol References
+- `@Web:[PROJECT_TYPE]-best-practices` - Research industry standards
+- `@Docs:[PRIMARY_FRAMEWORK]` - Official documentation
+- `@Files:README.md` - Project overview
+
 ---
 
 *This document serves as the foundation for the project and informs all other memory files.*
@@ -206,6 +267,11 @@ flowchart TD
 
 ## Component Relationships
 [Description of how components interact with each other]
+
+## Architecture @ Symbol References
+- `@Folders:[COMPONENT_1_DIRECTORY]` - [COMPONENT_1] implementation
+- `@Folders:[COMPONENT_2_DIRECTORY]` - [COMPONENT_2] implementation
+- `@Files:[ARCHITECTURE_DIAGRAM]` - Visual architecture representation
 
 ---
 
@@ -247,6 +313,23 @@ flowchart TD
 - Unit Testing: [UNIT_TESTING_APPROACH]
 - Integration Testing: [INTEGRATION_TESTING_APPROACH]
 - E2E Testing: [E2E_TESTING_APPROACH]
+
+## Recommended @ Symbol References
+
+### Key Project Files
+- `@Files:[MAIN_CONFIG_FILE]` - Main configuration
+- `@Files:[MAIN_ENTRY_POINT]` - Application entry point
+- `@Files:[BUILD_CONFIG]` - Build configuration
+
+### Key Directories
+- `@Folders:[SOURCE_DIR]` - Source code
+- `@Folders:[TEST_DIR]` - Test files
+- `@Folders:[CONFIG_DIR]` - Configuration files
+
+### Documentation
+- `@Docs:[FRAMEWORK_1]` - Framework documentation
+- `@Docs:[FRAMEWORK_2]` - Framework documentation
+- `@Docs:[TOOL_1]` - Tool documentation
 
 ---
 
@@ -290,6 +373,11 @@ flowchart TD
 - [ ] [PENDING_TASK_1]
 - [ ] [PENDING_TASK_2]
 
+## Key Context References
+- `@Files:[CURRENT_FILE_PATH]` - [DESCRIPTION]
+- `@Code:[CURRENT_FUNCTION]` - [DESCRIPTION]
+- `@Folders:[RELEVANT_DIRECTORY]` - [DESCRIPTION]
+
 ---
 
 *This document captures the current state of work and immediate next steps.*
@@ -330,9 +418,97 @@ Overall Completion: [PERCENTAGE]%
 - [MILESTONE_2]: [DUE_DATE] - [STATUS]
 - [MILESTONE_3]: [DUE_DATE] - [STATUS]
 
+## Feature-Specific References
+- [FEATURE_1]:
+  - `@Files:[FEATURE_1_FILE]` - Main implementation
+  - `@Code:[FEATURE_1_FUNCTION]` - Core functionality
+  - `@Folders:[FEATURE_1_DIRECTORY]` - Feature directory
+
+- [FEATURE_2]:
+  - `@Files:[FEATURE_2_FILE]` - Main implementation
+  - `@Code:[FEATURE_2_FUNCTION]` - Core functionality
+  - `@Folders:[FEATURE_2_DIRECTORY]` - Feature directory
+
 ---
 
 *This document tracks what works, what's in progress, and what's left to build.*
+```
+
+### @-symbol-registry.md Template
+```markdown
+# @ Symbol Registry: [PROJECT_NAME]
+*Version: 1.0*
+*Created: [CURRENT_DATE]*
+*Last Updated: [CURRENT_DATE]*
+
+## Purpose
+This registry documents all significant @ symbols for the project, providing quick access to important files, folders, code, and documentation.
+
+## Key Files
+| Symbol | Description | Relevance |
+|--------|-------------|-----------|
+| `@Files:[PATH]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Files:[PATH]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Files:[PATH]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+
+## Key Folders
+| Symbol | Description | Relevance |
+|--------|-------------|-----------|
+| `@Folders:[PATH]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Folders:[PATH]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Folders:[PATH]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+
+## Key Code Symbols
+| Symbol | Description | Relevance |
+|--------|-------------|-----------|
+| `@Code:[SYMBOL]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Code:[SYMBOL]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Code:[SYMBOL]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+
+## Documentation References
+| Symbol | Description | Relevance |
+|--------|-------------|-----------|
+| `@Docs:[TOPIC]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Docs:[TOPIC]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Docs:[TOPIC]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+
+## Web References
+| Symbol | Description | Relevance |
+|--------|-------------|-----------|
+| `@Web:[QUERY]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Web:[QUERY]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Web:[QUERY]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+
+## Git References
+| Symbol | Description | Relevance |
+|--------|-------------|-----------|
+| `@Git:[REFERENCE]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Git:[REFERENCE]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+| `@Git:[REFERENCE]` | [DESCRIPTION] | [HIGH/MEDIUM/LOW] |
+
+## Feature-Specific Symbols
+### [FEATURE_1_NAME]
+- `@Files:[PATH]` - [DESCRIPTION]
+- `@Code:[SYMBOL]` - [DESCRIPTION]
+- `@Folders:[PATH]` - [DESCRIPTION]
+
+### [FEATURE_2_NAME]
+- `@Files:[PATH]` - [DESCRIPTION]
+- `@Code:[SYMBOL]` - [DESCRIPTION]
+- `@Folders:[PATH]` - [DESCRIPTION]
+
+## Performance Considerations
+- Large Files (handle with care):
+  - `@Files:[LARGE_FILE_1]` - Use `@Code:[SPECIFIC_SYMBOL]` instead
+  - `@Files:[LARGE_FILE_2]` - Use `@Code:[SPECIFIC_SYMBOL]` instead
+
+- Large Directories (use specific sub-directories):
+  - `@Folders:[LARGE_DIR_1]` - Use `@Folders:[SUB_DIR]` instead
+  - `@Folders:[LARGE_DIR_2]` - Use `@Folders:[SUB_DIR]` instead
+
+---
+
+*This registry documents all significant @ symbols for the project, providing quick access to important files, folders, code, and documentation.*
 ```
 
 ## TRANSITION TO RIPER WORKFLOW
@@ -344,6 +520,8 @@ Once all six steps are completed:
    - START_PHASE_STATUS = "COMPLETED"
    - START_PHASE_STEP = 6
    - INITIALIZATION_DATE = [current date/time]
+   - SYMBOL_REGISTRY_CREATED = "POPULATED" (if applicable)
+   - SYMBOL_DISCOVERY_STATUS = "COMPLETED" (if applicable)
 3. Archive this component to .cursor/rules/archive/start-phase.mdc.archive
 4. Automatically transition to RESEARCH mode
 5. Inform the user: "Project initialization complete. Entering RESEARCH mode to begin development."
@@ -359,6 +537,8 @@ At the end of the START phase, ensure the following are complete:
 - [ ] Development environment configured and documented
 - [ ] Memory Bank initialized with all core files
 - [ ] Initial tasks documented in progress.md
+- [ ] @ Symbol registry created and populated
+- [ ] Key project symbols documented
 
 Once all items are checked, the system will automatically transition to the RIPER workflow.
 

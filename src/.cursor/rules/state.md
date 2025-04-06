@@ -2,16 +2,17 @@
 description: "CursorRIPER Framework - State Management"
 globs: 
 alwaysApply: true
-version: "1.0.2"
+version: "1.0.3"
 date_created: "2025-04-05"
-last_updated: "2025-04-05"
+last_updated: "2025-04-06"
 framework_component: "state"
 priority: "critical"
 scope: "always_load"
 ---
 <!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
+
 # CursorRIPER Framework - State Management
-# Version 1.0.2
+# Version 1.0.3
 
 ## AI PROCESSING INSTRUCTIONS
 This file defines the current state of the project within the CursorRIPER Framework. As an AI assistant, you MUST:
@@ -35,14 +36,25 @@ START_PHASE_STATUS: "NOT_STARTED"
 START_PHASE_STEP: 0
 # Possible values: 0-6 (0=Not started, 1=Requirements, 2=Technology, 3=Architecture, 4=Scaffolding, 5=Environment, 6=Memory Bank)
 
-LAST_UPDATE: "2025-04-05T00:00:00Z"
+LAST_UPDATE: "2025-04-06T00:00:00Z"
 # ISO 8601 formatted timestamp of last state update
 
 INITIALIZATION_DATE: ""
 # When START phase was completed, empty if not completed
 
-FRAMEWORK_VERSION: "1.0.0"
+FRAMEWORK_VERSION: "1.0.3"
 # Current version of the framework
+
+## @ SYMBOL STATE TRACKING
+
+SYMBOL_REGISTRY_CREATED: "NO"
+# Possible values: "NO", "INITIALIZED", "POPULATED", "OPTIMIZED"
+
+SYMBOL_DISCOVERY_STATUS: "NOT_STARTED"
+# Possible values: "NOT_STARTED", "IN_PROGRESS", "COMPLETED"
+
+LAST_SYMBOL_UPDATE: ""
+# ISO 8601 formatted timestamp of last symbol registry update
 
 ## STATE TRANSITION RULES
 
@@ -123,6 +135,28 @@ stateDiagram-v2
   - Trigger: Automatic after transition to DEVELOPMENT
   - Requirements: PROJECT_PHASE = "DEVELOPMENT"
 
+### Symbol Registry State Transitions
+- NO → INITIALIZED
+  - Trigger: Creation of @-symbol-registry.md file
+  - Requirements: PROJECT_PHASE in ["INITIALIZING", "DEVELOPMENT", "MAINTENANCE"]
+  
+- INITIALIZED → POPULATED
+  - Trigger: Documentation of at least 10 project symbols
+  - Requirements: SYMBOL_REGISTRY_CREATED = "INITIALIZED"
+  
+- POPULATED → OPTIMIZED
+  - Trigger: Addition of performance considerations to registry
+  - Requirements: SYMBOL_REGISTRY_CREATED = "POPULATED"
+
+### Symbol Discovery Status Transitions
+- NOT_STARTED → IN_PROGRESS
+  - Trigger: START phase step 6.1 completion or manual discovery start
+  - Requirements: PROJECT_PHASE in ["INITIALIZING", "DEVELOPMENT", "MAINTENANCE"]
+  
+- IN_PROGRESS → COMPLETED
+  - Trigger: Completion of @ symbol discovery process
+  - Requirements: At least 10 symbols documented or manual completion
+
 ## STATE UPDATE PROCEDURES
 
 ### Update Project Phase
@@ -150,6 +184,20 @@ stateDiagram-v2
 3. Update LAST_UPDATE timestamp
 4. If reaching step 6, trigger completion process
 
+### Update Symbol Registry State
+1. Validate transition is allowed
+2. Update SYMBOL_REGISTRY_CREATED value
+3. Update LAST_SYMBOL_UPDATE timestamp
+4. Update LAST_UPDATE timestamp
+5. If transitioning to POPULATED or OPTIMIZED, update activeContext.md
+
+### Update Symbol Discovery Status
+1. Validate transition is allowed
+2. Update SYMBOL_DISCOVERY_STATUS value
+3. Update LAST_SYMBOL_UPDATE timestamp
+4. Update LAST_UPDATE timestamp
+5. If transitioning to COMPLETED, update activeContext.md
+
 ## AUTOMATIC STATE DETECTION
 
 When determining current project state:
@@ -163,6 +211,11 @@ When determining current project state:
    - Set PROJECT_PHASE to "INITIALIZING"
    - Set START_PHASE_STATUS to "IN_PROGRESS"
    - Determine START_PHASE_STEP based on existing files
+4. Check for existence of @-symbol-registry.md:
+   - If exists and contains >10 symbols, set SYMBOL_REGISTRY_CREATED to "POPULATED"
+   - If exists but contains <10 symbols, set SYMBOL_REGISTRY_CREATED to "INITIALIZED"
+   - If not exists, set SYMBOL_REGISTRY_CREATED to "NO"
+5. Determine SYMBOL_DISCOVERY_STATUS based on registry state and contents
 
 ## RE-INITIALIZATION PROTECTION
 
@@ -174,6 +227,7 @@ If "/start" or "BEGIN START PHASE" is detected when PROJECT_PHASE is not "UNINIT
    - Reset state to PROJECT_PHASE = "INITIALIZING"
    - Reset START_PHASE_STATUS to "IN_PROGRESS"
    - Reset START_PHASE_STEP to 1
+   - Preserve SYMBOL_REGISTRY_CREATED and SYMBOL_DISCOVERY_STATUS if they exist
 
 ---
 

@@ -2,7 +2,7 @@
 description: "CursorRIPER Framework - Customization"
 globs: 
 alwaysApply: false
-version: "1.0.1"
+version: "1.0.2"
 date_created: "2025-04-05"
 last_updated: "2025-04-06"
 framework_component: "customization"
@@ -11,7 +11,7 @@ scope: "optional"
 ---
 <!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
 # CursorRIPER Framework - Customization
-# Version 1.0.1
+# Version 1.0.2
 
 ## AI PROCESSING INSTRUCTIONS
 This file contains user-defined customizations for the CursorRIPER Framework. As an AI assistant, you MUST:
@@ -66,6 +66,39 @@ BACKUP_FREQUENCY: "DAILY"
 
 KEEP_BACKUP_COUNT: 5
 # Number of backup sets to retain before deleting oldest
+
+## @ SYMBOL CUSTOMIZATION
+
+### Symbol Usage Preferences
+AUTO_SUGGEST_SYMBOLS: true
+# If true, AI will suggest relevant @ symbols when appropriate
+
+SYMBOL_SUGGESTION_FREQUENCY: "MEDIUM"
+# Possible values: "LOW", "MEDIUM", "HIGH"
+# Controls how often @ symbol suggestions are offered
+
+MAINTAIN_SYMBOL_REGISTRY: true
+# If true, AI will automatically update the @ symbol registry
+
+### Symbol Context Preferences
+DEFAULT_SYMBOL_DEPTH: "FILE"
+# Possible values: "FILE", "DIRECTORY", "REPOSITORY"
+# Controls default context depth for @ symbols
+
+CODE_SYMBOL_PREFERENCE: "FUNCTION"
+# Possible values: "FUNCTION", "CLASS", "VARIABLE", "ALL"
+# Controls which code symbols are prioritized in suggestions
+
+### Symbol Template Aliases
+SYMBOL_ALIASES: {
+  "@f:": "@Files:",
+  "@d:": "@Folders:",
+  "@c:": "@Code:",
+  "@doc:": "@Docs:",
+  "@w:": "@Web:",
+  "@g:": "@Git:"
+}
+# Custom short aliases for @ symbols
 
 ## ADVANCED CUSTOMIZATION
 
