@@ -47,6 +47,7 @@ flowchart TD
 - **Project Intelligence**: Learning from patterns and preferences
 - **State Management**: Explicit tracking of project phase and mode
 - **Safe Initialization**: Guided setup with protection against re-initialization
+- **@ Symbol Integration**: Enhanced context referencing with Cursor's @ symbols
 
 ## Getting Started
 
@@ -65,6 +66,25 @@ flowchart TD
 
 4. Use the RIPER workflow for ongoing development
 
+## @ Symbol Enhancement (New in v1.0.3)
+
+The framework now integrates with Cursor IDE's powerful @ symbol functionality to provide enhanced context referencing:
+
+- **Mode-Specific Symbols**: Optimized symbol patterns for each RIPER mode
+- **Symbol Registry**: Track important project references in the memory bank
+- **Progressive Introduction**: Symbols introduced gradually during START phase
+- **Performance Optimization**: Guidance for handling large files and directories
+- **Customizable**: Configure symbol preferences in customization.mdc
+
+```mermaid
+flowchart LR
+    A["@ Symbols"] --> R["RESEARCH<br>@Files, @Folders, @Code"]
+    A --> I["INNOVATE<br>@Web, @Docs, @Files"]
+    A --> P["PLAN<br>@Files, @Code, @Folders"]
+    A --> E["EXECUTE<br>@Files, @Code, @Tests"]
+    A --> Rev["REVIEW<br>@Files, @Git, @Code"]
+```
+
 ## Documentation
 
 - [Setup Guide](docs/setup-guide.md)
@@ -72,12 +92,13 @@ flowchart TD
 - [RIPER Workflow Guide](docs/riper-workflow-guide.md)
 - [Memory Bank Guide](docs/memory-bank-guide.md)
 - [Custom Modes Guide](docs/custom-modes-guide.md)
+- [@ Symbol Guide](docs/@-symbol-guide.md) (New)
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
-The orginial RIPER framework is by: [robotlovehuman](https://github.com/robotlovehuman)
+The original RIPER framework is by: [robotlovehuman](https://github.com/robotlovehuman)
 
 *The CursorRIPER Framework prevents coding disasters while maintaining perfect continuity across sessions.*
