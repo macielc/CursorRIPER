@@ -92,6 +92,7 @@ flowchart LR
 - [RIPER Workflow Guide](docs/riper-workflow-guide.md)
 - [Memory Bank Guide](docs/memory-bank-guide.md)
 - [Custom Modes Guide](docs/custom-modes-guide.md)
+- [Troubleshooting Guide](docs/troubleshooting-guide.md)
 - [@ Symbol Guide](docs/@-symbol-guide.md) (New)
 
 ## License
