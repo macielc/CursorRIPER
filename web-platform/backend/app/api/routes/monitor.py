@@ -120,3 +120,27 @@ def get_monitor_logs(count: int = 50):
         "count": len(logs)
     }
 
+
+@router.get("/diagnostics")
+def get_monitor_diagnostics():
+    """Retorna informacoes de diagnostico do monitor"""
+    from app.services.monitor_service import get_monitor_service
+    from app.core.config import settings
+    import os
+    
+    service = get_monitor_service()
+    
+    return {
+        "monitor_path": str(service.monitor_path),
+        "monitor_path_exists": service.monitor_path.exists(),
+        "monitor_script": str(service.monitor_script),
+        "monitor_script_exists": service.monitor_script.exists(),
+        "config_live_trading_path": str(settings.LIVE_TRADING_PATH),
+        "config_live_trading_exists": settings.LIVE_TRADING_PATH.exists(),
+        "config_strategies_path": str(settings.STRATEGIES_PATH),
+        "config_strategies_exists": settings.STRATEGIES_PATH.exists(),
+        "config_monitor_config_path": str(settings.MONITOR_CONFIG_PATH),
+        "config_monitor_config_exists": settings.MONITOR_CONFIG_PATH.exists(),
+        "current_working_directory": os.getcwd()
+    }
+
