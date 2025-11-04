@@ -30,9 +30,9 @@ class Settings(BaseSettings):
     ]
     
     # Live Trading Integration
-    LIVE_TRADING_PATH: Path = Path("../live_trading")
+    LIVE_TRADING_PATH: Path = Path("../../live_trading")
     STRATEGIES_PATH: Path = LIVE_TRADING_PATH / "strategies"
-    MOTOR_CONFIG_PATH: Path = LIVE_TRADING_PATH / "config.yaml"
+    MONITOR_CONFIG_PATH: Path = LIVE_TRADING_PATH / "config.yaml"
     
     # WebSocket
     WS_HEARTBEAT_INTERVAL: int = 30  # segundos
@@ -56,7 +56,10 @@ class Settings(BaseSettings):
     
     class Config:
         env_file = ".env"
-        case_sensitive = True
+        env_file_encoding = "utf-8"
+        env_ignore_empty = True
+        case_sensitive = False
+        extra = "ignore"
 
 
 # Instancia global
