@@ -20,7 +20,7 @@ pydantic-settings>=2.6.0
 python-dateutil>=2.8.2
 
 # MT5 Integration
-MetaTrader5>=5.0.5388
+MetaTrader5>=5.0.45
 psutil>=5.9.0
 
 # File Handling
