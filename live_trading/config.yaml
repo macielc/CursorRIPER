@@ -1,0 +1,106 @@
+# ========================================
+# CONFIGURACAO DO MOTOR LIVE TRADING
+# ========================================
+# MacTester - Release 1.0
+# Configuracoes genericas do motor de execucao
+# Parametros especificos das estrategias estao em: strategies/config_*.yaml
+
+# ========================================
+# ESTRATEGIA ATIVA
+# ========================================
+active_strategy: "barra_elefante"  # Nome do arquivo sem prefixo/sufixo
+
+# ========================================
+# CONEXAO MT5
+# ========================================
+mt5:
+  # Login, senha e servidor (deixe null para usar ultima conta conectada)
+  login: null
+  password: null
+  server: null
+
+# ========================================
+# SIMBOLO E TIMEFRAME
+# ========================================
+trading:
+  symbol: "WIN$"          # Simbolo a ser negociado
+  timeframe: 5            # Timeframe em minutos (5 = M5)
+  volume: 1.0             # Quantidade de contratos por ordem
+
+# ========================================
+# GESTAO DE RISCO (MOTOR)
+# ========================================
+risk:
+  # Loss maximo diario (em pontos)
+  max_daily_loss_points: 1000
+  
+  # Loss maximo por trade (em pontos)
+  max_trade_loss_points: 500
+  
+  # Maximo de posicoes simultaneas
+  max_positions: 1
+  
+  # Kill switch: parar se perder X trades seguidos
+  max_consecutive_losses: 5
+
+# ========================================
+# MONITORAMENTO
+# ========================================
+monitor:
+  # Intervalo de verificacao (segundos)
+  check_interval: 60        # Verifica mercado a cada 60 segundos
+  
+  # Quantidade de candles a buscar do MT5
+  lookback_candles: 50      # Busca ultimos 50 candles para analise
+  
+  # Modo dry-run (IMPORTANTE!)
+  # true = SIMULA sem executar ordens reais
+  # false = EXECUTA ORDENS REAIS na conta MT5
+  dry_run: true             # SEMPRE comece com true!
+  
+  # Horario de funcionamento do monitor (previne esquecimento ligado)
+  monitor_start_hour: 8     # Monitor liga as 8h
+  monitor_end_hour: 18      # Monitor desliga as 18h
+
+# ========================================
+# LOGS
+# ========================================
+logging:
+  # Nivel de log: DEBUG, INFO, WARNING, ERROR
+  level: "INFO"
+  
+  # Arquivo de log principal
+  file: "live_trading/logs/monitor.log"
+  
+  # Rotacao de logs (dias)
+  rotation_days: 30
+  
+  # Salvar sinais detectados em CSV
+  save_signals: true
+  signals_file: "live_trading/logs/signals.csv"
+  
+  # Salvar ordens executadas em CSV
+  save_orders: true
+  orders_file: "live_trading/logs/orders.csv"
+
+# ========================================
+# ALERTAS (OPCIONAL)
+# ========================================
+alerts:
+  # Habilitar sistema de alertas
+  enabled: false
+  
+  # Email (requer configuracao SMTP)
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    from_email: "seu_email@gmail.com"
+    to_email: "seu_email@gmail.com"
+    password: "sua_senha_app"
+  
+  # Telegram (requer bot token)
+  telegram:
+    enabled: false
+    bot_token: "SEU_BOT_TOKEN"
+    chat_id: "SEU_CHAT_ID"

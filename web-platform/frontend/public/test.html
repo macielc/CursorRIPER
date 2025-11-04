@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Simples</title>
+</head>
+<body>
+    <h1>Se voce esta vendo isso, o servidor Vite funciona!</h1>
+    <p>O problema esta no carregamento do React.</p>
+    <script>
+        console.log('Teste HTML carregou!');
+        fetch('/api/health')
+            .then(r => r.json())
+            .then(d => console.log('Backend:', d))
+            .catch(e => console.error('Backend offline:', e));
+    </script>
+</body>
+</html>
+

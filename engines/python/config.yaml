@@ -1,0 +1,132 @@
+# MacTester - Configuração Global
+
+# Dados
+data:
+  default_timeframe: "5m"
+  paths:
+    5m: "../data/WINFUT_M5_Golden_Data.csv"
+    15m: "../data/WINFUT_M15_Golden_Data.csv"
+  
+  validation:
+    min_quality_score: 70
+    check_gaps: true
+    check_outliers: true
+  
+  split:
+    train_pct: 0.60      # 60% treino
+    validation_pct: 0.20  # 20% validação
+    oos_pct: 0.20        # 20% out-of-sample
+
+# Otimização
+optimization:
+  n_tests: 10000
+  n_cores: 32
+  method: "grid"  # ou "bayesian"
+  
+  selection:
+    top_n: 20
+    use_clustering: true
+    pareto_frontier: true
+  
+  metrics_weights:
+    sharpe_ratio: 0.20
+    sortino_ratio: 0.15
+    calmar_ratio: 0.15
+    profit_factor: 0.10
+    win_rate: 0.10
+    recovery_factor: 0.10
+    consistency: 0.10
+    trade_frequency: 0.05
+    tail_ratio: 0.05
+
+# Validação Estatística
+validation:
+  permutation_tests: 10000
+  confidence_level: 0.95
+  p_value_threshold: 0.05
+  bootstrap_samples: 1000
+  
+  filters:
+    min_sharpe: 0.5
+    min_trades: 30
+    max_drawdown: -20
+    min_profit_factor: 1.2
+
+# Walk-Forward
+walkforward:
+  methods: ["anchored", "rolling", "expanding"]
+  
+  anchored:
+    train_size: 0.50
+    test_size: 0.10
+    n_windows: 5
+  
+  rolling:
+    window_size: 252  # ~1 ano de trading
+    step_size: 63      # ~3 meses
+  
+  expanding:
+    initial_size: 0.30
+    step_size: 0.10
+  
+  degradation_threshold: 0.30  # Max 30% degradação IS vs OOS
+
+# Out-of-Sample
+oos:
+  reserve_pct: 0.20
+  min_sharpe_ratio: 0.5  # 50% do in-sample
+  min_profit_factor: 0.7  # 70% do in-sample
+
+# Robustez
+robustness:
+  outlier_analysis:
+    enabled: true
+    threshold_pct: 99  # Considerar top/bottom 1%
+  
+  regime_analysis:
+    enabled: true
+    regimes: ["trend", "range", "high_vol", "low_vol"]
+  
+  slippage_test:
+    enabled: true
+    slippage_bps: [0, 5, 10, 20, 50]  # basis points
+  
+  commission_test:
+    enabled: true
+    commission_bps: [0, 2, 5, 10]
+
+# Scoring
+scoring:
+  weights:
+    statistical_significance: 0.30
+    walkforward_consistency: 0.25
+    oos_performance: 0.20
+    robustness: 0.15
+    paper_trading: 0.10
+  
+  thresholds:
+    go_live: 75
+    caution: 60
+    reject: 60
+
+# Relatórios
+reporting:
+  format: ["html", "pdf"]
+  include:
+    - equity_curve
+    - drawdown_chart
+    - trade_distribution
+    - parameter_heatmaps
+    - correlation_matrix
+    - regime_breakdown
+  
+  save_trades: true
+  save_equity_curve: true
+
+# Execução
+execution:
+  save_checkpoints: true
+  checkpoint_frequency: 1000  # A cada N testes
+  resume_from_checkpoint: true
+  verbose: true
+

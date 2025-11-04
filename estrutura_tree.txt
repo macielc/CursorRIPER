@@ -1,0 +1,175 @@
+Listagem de caminhos de pasta para o volume 1) Samsung 990 2TB
+O número de série do volume é 566E-6136
+C:.
+|   .gitignore
+|   ESTRUTURA_COMPLETA.md
+|   estrutura_tree.txt
+|   README.md
+|   
++---data
+|   |   README.md
+|   |   
+|   \---golden
+|           metadata.json
+|           WINFUT_M15_Golden_Data.csv
+|           WINFUT_M5_Golden_Data.csv
+|           
++---docs
+|       VISAO_GERAL_SISTEMA.md
+|       WORKFLOW.md
+|       
++---engines
+|   +---python
+|   |   |   config.yaml
+|   |   |   mactester.py
+|   |   |   README.md
+|   |   |   requirements.txt
+|   |   |   
+|   |   \---core
+|   |       |   analise_temporal.py
+|   |       |   backtest_engine.py
+|   |       |   data_loader.py
+|   |       |   gerar_graficos.py
+|   |       |   metrics.py
+|   |       |   monte_carlo.py
+|   |       |   optimizer.py
+|   |       |   optimizer_BACKUP_ORIGINAL.py
+|   |       |   optimizer_concurrent.py
+|   |       |   optimizer_FIXED.py
+|   |       |   optimizer_ray.py
+|   |       |   reporter.py
+|   |       |   statistical.py
+|   |       |   strategy_base.py
+|   |       |   walkforward.py
+|   |       |   __init__.py
+|   |       |   
+|   |       \---__pycache__
+|   |               backtest_engine.cpython-313.pyc
+|   |               data_loader.cpython-313.pyc
+|   |               metrics.cpython-313.pyc
+|   |               monte_carlo.cpython-313.pyc
+|   |               optimizer.cpython-313.pyc
+|   |               reporter.cpython-313.pyc
+|   |               statistical.cpython-313.pyc
+|   |               strategy_base.cpython-313.pyc
+|   |               walkforward.cpython-313.pyc
+|   |               __init__.cpython-313.pyc
+|   |               
+|   \---rust
+|           COMO_USAR.md
+|           optimize_batches.exe
+|           optimize_standalone.exe
+|           optimize_threads.exe
+|           README.md
+|           validate_single.exe
+|           
++---mt5_integration
+|   |   README.md
+|   |   
+|   +---ea_templates
+|   |       EA_BarraElefante_CORRIGIDO.mq5
+|   |       EA_BarraElefante_NOVO.mq5
+|   |       EA_BarraElefante_Python.mq5
+|   |       EA_BarraElefante_SIMPLES.mq5
+|   |       
+|   \---generated_eas
+|           .gitkeep
+|           
++---pipeline
+|   |   comparar_mt5_python.py
+|   |   README.md
+|   |   run_pipeline.py
+|   |   
+|   \---validators
+|           fase3_walkforward.py
+|           fase4_out_of_sample.py
+|           fase5_outlier_analysis.py
+|           fase6_relatorio_final.py
+|           
++---results
+|   +---backtests
+|   |   +---python
+|   |   |       .gitkeep
+|   |   |       
+|   |   \---rust
+|   |           .gitkeep
+|   |           
+|   +---comparison
+|   |   +---python_vs_mt5
+|   |   |       .gitkeep
+|   |   |       
+|   |   +---python_vs_rust
+|   |   |       .gitkeep
+|   |   |       
+|   |   \---rust_vs_mt5
+|   |           .gitkeep
+|   |           
+|   \---validation
+|           .gitkeep
+|           
+\---strategies
+    |   README.md
+    |   
+    \---barra_elefante
+        |   README.md
+        |   strategy.py
+        |   strategy_optimized.py
+        |   __init__.py
+        |   
+        \---__pycache__
+                strategy.cpython-313.pyc
+                strategy._calc_amplitude_vec-27.py313.1.nbc
+                strategy._calc_amplitude_vec-27.py313.nbi
+                strategy._calc_amplitude_vec-29.py313.1.nbc
+                strategy._calc_amplitude_vec-29.py313.nbi
+                strategy._calc_amplitude_vec-31.py313.1.nbc
+                strategy._calc_amplitude_vec-31.py313.nbi
+                strategy._calc_amplitude_vec-33.py313.1.nbc
+                strategy._calc_amplitude_vec-33.py313.nbi
+                strategy._calc_amplitude_vec-34.py313.1.nbc
+                strategy._calc_amplitude_vec-34.py313.nbi
+                strategy._calc_amplitude_vec-36.py313.1.nbc
+                strategy._calc_amplitude_vec-36.py313.nbi
+                strategy._calc_corpo_vec-33.py313.1.nbc
+                strategy._calc_corpo_vec-33.py313.nbi
+                strategy._calc_corpo_vec-35.py313.1.nbc
+                strategy._calc_corpo_vec-35.py313.nbi
+                strategy._calc_corpo_vec-37.py313.1.nbc
+                strategy._calc_corpo_vec-37.py313.nbi
+                strategy._calc_corpo_vec-39.py313.1.nbc
+                strategy._calc_corpo_vec-39.py313.nbi
+                strategy._calc_corpo_vec-40.py313.1.nbc
+                strategy._calc_corpo_vec-40.py313.nbi
+                strategy._calc_corpo_vec-42.py313.1.nbc
+                strategy._calc_corpo_vec-42.py313.nbi
+                strategy._detect_elephant_bars_numba-105.py313.1.nbc
+                strategy._detect_elephant_bars_numba-105.py313.nbi
+                strategy._detect_elephant_bars_numba-109.py313.1.nbc
+                strategy._detect_elephant_bars_numba-109.py313.nbi
+                strategy._detect_elephant_bars_numba-111.py313.1.nbc
+                strategy._detect_elephant_bars_numba-111.py313.nbi
+                strategy._detect_elephant_bars_numba-112.py313.1.nbc
+                strategy._detect_elephant_bars_numba-112.py313.nbi
+                strategy._detect_elephant_bars_numba-114.py313.1.nbc
+                strategy._detect_elephant_bars_numba-114.py313.nbi
+                strategy._detect_elephant_bars_numba-56.py313.1.nbc
+                strategy._detect_elephant_bars_numba-56.py313.nbi
+                strategy._detect_elephant_bars_numba-61.py313.1.nbc
+                strategy._detect_elephant_bars_numba-61.py313.2.nbc
+                strategy._detect_elephant_bars_numba-61.py313.nbi
+                strategy._detect_elephant_bars_numba-88.py313.1.nbc
+                strategy._detect_elephant_bars_numba-88.py313.nbi
+                strategy._detect_elephant_bars_numba-90.py313.1.nbc
+                strategy._detect_elephant_bars_numba-90.py313.nbi
+                strategy._rolling_mean_numba-42.py313.1.nbc
+                strategy._rolling_mean_numba-42.py313.nbi
+                strategy._rolling_mean_numba-46.py313.1.nbc
+                strategy._rolling_mean_numba-46.py313.nbi
+                strategy._rolling_mean_numba-48.py313.1.nbc
+                strategy._rolling_mean_numba-48.py313.nbi
+                strategy._rolling_mean_numba-49.py313.1.nbc
+                strategy._rolling_mean_numba-49.py313.nbi
+                strategy._rolling_mean_numba-51.py313.1.nbc
+                strategy._rolling_mean_numba-51.py313.nbi
+                __init__.cpython-313.pyc
+                

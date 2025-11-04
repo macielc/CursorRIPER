@@ -1,0 +1,17 @@
+# Requirements para Sistema Híbrido MacTester
+# Python 3.8+
+
+# MT5 API
+MetaTrader5>=5.0.45
+
+# Data manipulation
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Configuration
+PyYAML>=6.0
+
+# Optional (para features futuras)
+# matplotlib>=3.4.0  # Para gráficos
+# python-telegram-bot>=13.0  # Para alertas Telegram
+

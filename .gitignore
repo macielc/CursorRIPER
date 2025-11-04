@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environments
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Results (muito grandes para versionamento)
+results/backtests/*
+results/validation/*
+results/comparison/*
+# Manter estrutura de diretorios
+!results/backtests/.gitkeep
+!results/validation/.gitkeep
+!results/comparison/.gitkeep
+
+# Golden Data (muito grande, considere Git LFS)
+data/golden/*.csv
+data/golden/*.parquet
+# Manter metadata
+!data/golden/metadata.json
+
+# MT5 Generated EAs (gerados automaticamente)
+mt5_integration/generated_eas/*
+!mt5_integration/generated_eas/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+*~
+
+# Rust (se recompilar)
+engines/rust/target/
+engines/rust/Cargo.lock
+
+# Compiled files
+*.exe
+*.dll
+*.pdb
+*.d
+
+# System files
+.cache/
+*.pid
+

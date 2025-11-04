@@ -1,0 +1,106 @@
+{
+  "dataset_name": "WINFUT Golden Data",
+  "description": "Dados historicos completos do WIN$ (Mini-Indice Futuro) extraidos do MetaTrader 5",
+  "version": "1.0",
+  "extraction_date": "2024-11-01",
+  "source": "MetaTrader 5 - Clear Corretora",
+  
+  "files": {
+    "WINFUT_M5_Golden_Data.csv": {
+      "timeframe": "M5",
+      "timeframe_minutes": 5,
+      "period_start": "2020-01-01 09:00:00",
+      "period_end": "2024-12-31 18:00:00",
+      "total_candles": "~1500000",
+      "file_size_mb": "~500",
+      "trading_hours": "09:00-18:00 BRT",
+      "trading_days": "Monday-Friday"
+    },
+    
+    "WINFUT_M15_Golden_Data.csv": {
+      "timeframe": "M15",
+      "timeframe_minutes": 15,
+      "period_start": "2020-01-01 09:00:00",
+      "period_end": "2024-12-31 18:00:00",
+      "total_candles": "~500000",
+      "file_size_mb": "~170",
+      "trading_hours": "09:00-18:00 BRT",
+      "trading_days": "Monday-Friday"
+    }
+  },
+  
+  "columns": {
+    "datetime": {
+      "type": "datetime",
+      "format": "YYYY-MM-DD HH:MM:SS",
+      "description": "Data e hora do candle"
+    },
+    "open": {
+      "type": "float",
+      "description": "Preco de abertura"
+    },
+    "high": {
+      "type": "float",
+      "description": "Preco maximo do periodo"
+    },
+    "low": {
+      "type": "float",
+      "description": "Preco minimo do periodo"
+    },
+    "close": {
+      "type": "float",
+      "description": "Preco de fechamento"
+    },
+    "volume": {
+      "type": "int",
+      "description": "Volume real negociado"
+    },
+    "tick_volume": {
+      "type": "int",
+      "description": "Numero de alteracoes de preco (ticks)"
+    },
+    "ma_21": {
+      "type": "float",
+      "description": "Media Movel Simples 21 periodos",
+      "calculation": "SMA(close, 21)"
+    },
+    "rsi_14": {
+      "type": "float",
+      "description": "Relative Strength Index 14 periodos",
+      "calculation": "RSI(close, 14)"
+    },
+    "atr_14": {
+      "type": "float",
+      "description": "Average True Range 14 periodos",
+      "calculation": "ATR(14)"
+    },
+    "volume_ma_20": {
+      "type": "float",
+      "description": "Media de volume 20 periodos",
+      "calculation": "SMA(volume, 20)"
+    }
+  },
+  
+  "quality_checks": {
+    "no_gaps": true,
+    "chronological_order": true,
+    "no_invalid_values": true,
+    "ohlc_consistency": true,
+    "indicators_calculated": true
+  },
+  
+  "usage_notes": [
+    "Estes dados sao a fonte da verdade para todos os backtests",
+    "NUNCA modifique os arquivos originais",
+    "Todos os indicadores foram calculados pelo MT5",
+    "Dados cobrem apenas horarios de pregao (09:00-18:00)",
+    "Para periodos especificos, filtrar pelo campo datetime"
+  ],
+  
+  "updates": {
+    "last_update": "2024-11-01",
+    "next_update": "Manual - quando necessario",
+    "update_process": "Extrair novos dados do MT5 e validar qualidade"
+  }
+}
+

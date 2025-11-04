@@ -1,0 +1,188 @@
+=============================================================================
+PARAMETROS PARA MT5 STRATEGY TESTER - JANEIRO 2024
+=============================================================================
+
+EA: EA_BarraElefante_SIMPLES.mq5 (v2.00)
+Símbolo: WIN$ ou WINFUT
+Timeframe: M5 (5 minutos)
+Período: 01/01/2024 00:00 a 31/01/2024 23:59
+Modelo: Todos os ticks (ou "Every tick based on real ticks")
+Otimização: Desabilitada
+Depósito inicial: 10000 (ou qualquer valor)
+
+=============================================================================
+PARAMETROS DO EA (copie exatamente):
+=============================================================================
+
+InpMinAmplitudeMult = 1.35
+InpMinVolumeMult = 1.3
+InpMaxSombraPct = 0.30
+InpLookbackAmplitude = 25
+InpLookbackVolume = 20
+InpHoraInicio = 9
+InpMinutoInicio = 15
+InpHoraFim = 11
+InpMinutoFim = 0
+InpSL_ATR_Mult = 2.0
+InpTP_ATR_Mult = 3.0
+InpHoraFechamento = 12
+InpMinutoFechamento = 15
+InpLotSize = 1.0
+InpMagicNumber = 123456
+
+=============================================================================
+TESTE RAPIDO - DIA 09/01/2024 (CRITICO)
+=============================================================================
+
+Período: 09/01/2024 00:00 a 09/01/2024 23:59
+
+RESULTADO ESPERADO:
+- Total de trades: 2
+- Direção: SELL, SELL
+- Horários: ~09:05 e ~10:05
+- PnL total: ~+900 pontos
+- Ambos devem atingir TP (Take Profit)
+
+=============================================================================
+RESULTADO PYTHON - JANEIRO 2024 (REFERÊNCIA)
+=============================================================================
+
+Total de trades: 27
+Elefantes detectados: 27
+Wins: 8 (29.6%)
+Losses: 19 (70.4%)
+Total PnL: -3,105.14 pontos (R$ -621.03)
+
+TRADES IMPORTANTES PARA CONFERIR:
+
+Trade #1 (03/01): BUY 10:20 → SL -279 pts
+Trade #2 (03/01): SELL 10:45 → SL -322 pts
+Trade #3 (05/01): BUY 10:15 → SL -317 pts
+Trade #5 (09/01): SELL 09:05 → TP +426 pts ✅
+Trade #6 (09/01): SELL 10:05 → TP +486 pts ✅
+Trade #12 (16/01): SELL 10:20 → TP +544 pts ✅
+Trade #15 (18/01): SELL 10:05 → TP +701 pts ✅
+Trade #16 (19/01): SELL 10:25 → TP +583 pts ✅
+Trade #21 (24/01): SELL 10:05 → TP +848 pts ✅ (MELHOR TRADE!)
+Trade #26 (30/01): SELL 09:55 → TP +580 pts ✅
+Trade #27 (31/01): BUY 09:15 → TP +702 pts ✅
+
+=============================================================================
+COMO CONFIGURAR NO MT5
+=============================================================================
+
+1. Abra o MetaTrader 5
+
+2. Pressione Ctrl+R (abre Strategy Tester)
+
+3. No painel Strategy Tester:
+   - Expert Advisor: EA_BarraElefante_SIMPLES
+   - Symbol: WIN$ (ou WINFUT)
+   - Period: M5
+   - Dates: Custom period
+     - From: 01.01.2024
+     - To: 31.01.2024
+   - Mode: Every tick based on real ticks
+   - Optimization: Disabled
+   - Visual mode: (opcional, marque se quiser ver o gráfico)
+
+4. Clique em "Expert properties" (ícone de engrenagem)
+
+5. Na aba "Inputs", configure os parâmetros listados acima
+
+6. Clique em "OK"
+
+7. Clique em "Start" (ou pressione F5)
+
+8. Aguarde o teste finalizar
+
+9. Verifique os resultados na aba "Results"
+
+=============================================================================
+O QUE VERIFICAR NOS RESULTADOS
+=============================================================================
+
+✅ SUCESSO (Identidade alcançada):
+- Total Trades = 27 (±1 trade)
+- Win Rate = ~30% (29-31%)
+- Gross Profit = ~R$ 5,000-6,000
+- Gross Loss = ~R$ 5,500-6,500
+- Total Net Profit = ~R$ -600 a -650
+
+⚠️ ATENÇÃO (Possíveis divergências):
+- Total Trades = 20-26 (próximo mas não igual)
+- Win Rate = 25-35% (razoável)
+- PnL com diferença de até 15%
+
+❌ PROBLEMA (Lógica ainda diferente):
+- Total Trades < 20 ou > 30
+- Win Rate < 20% ou > 40%
+- PnL muito diferente do Python
+
+=============================================================================
+LOGS IMPORTANTES (Aba Journal/Experts)
+=============================================================================
+
+No início do teste, você deve ver:
+
+===== EA BARRA ELEFANTE - IDENTICO PYTHON (SEM SLIPPAGE) =====
+Parametros:
+  MinAmplitudeMult: 1.35
+  MinVolumeMult: 1.3
+  MaxSombraPct: 0.30
+  Lookback Amplitude: 25
+  Lookback Volume: 20
+  Horario: 9:15 - 11:0
+  SL ATR: 2.0 | TP ATR: 3.0
+  Fechamento: 12:15
+
+Para cada trade, você deve ver:
+ELEFANTE #1 detectado em 2024.01.03 10:20:00 - Rompimento confirmado! Entrando ORDER_TYPE_BUY
+Trade #1: ORDER_TYPE_BUY @ 163391.00
+
+No final do teste, você deve ver:
+===== EA FINALIZADO =====
+  Elefantes detectados: 27
+  Total de trades: 27
+========================
+
+=============================================================================
+TROUBLESHOOTING
+=============================================================================
+
+PROBLEMA: MT5 mostra 0 trades
+SOLUÇÃO: 
+- Verifique se tem dados históricos M5 para janeiro/2024
+- Baixe dados do servidor da corretora
+- Tente outro símbolo (WINFUT, WIN$N24, etc)
+
+PROBLEMA: MT5 mostra muitos trades (>40)
+SOLUÇÃO:
+- Verifique se os parâmetros estão corretos
+- Confirme que o EA é a versão v2.00
+- Recompile o EA (F7 no MetaEditor)
+
+PROBLEMA: PnL muito diferente
+SOLUÇÃO:
+- Verifique o spread configurado (deve ser baixo)
+- Confirme que está usando "Todos os ticks"
+- Compare os primeiros 5 trades com a lista acima
+
+=============================================================================
+CONTATO
+=============================================================================
+
+Após o teste, me informe:
+
+1. Total de trades executados
+2. Win rate (%)
+3. PnL total (em pontos e R$)
+4. Horário do primeiro trade
+5. Horário do último trade
+6. Screenshot da aba "Results" (se possível)
+7. Screenshot dos logs (aba Journal/Experts)
+
+Qualquer dúvida ou resultado inesperado, me avise!
+
+=============================================================================
+
