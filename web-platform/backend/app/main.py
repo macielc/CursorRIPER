@@ -11,7 +11,7 @@ import logging
 
 from app.core.config import settings
 from app.core.database import init_db
-from app.api.routes import strategies, orders
+from app.api.routes import strategies, orders, monitor
 
 # Setup logging
 logging.basicConfig(
@@ -47,11 +47,17 @@ async def startup_event():
     logger.info("Iniciando MacTester Web Platform...")
     init_db()
     logger.info("Banco de dados inicializado")
+    
+    # Inicializar WebSocket service
+    from app.services.websocket_service import init_websocket_service
+    init_websocket_service(manager)
+    logger.info("WebSocket service inicializado")
 
 
 # Include routers
 app.include_router(strategies.router, prefix="/api")
 app.include_router(orders.router, prefix="/api")
+app.include_router(monitor.router, prefix="/api")
 
 # Root endpoint
 @app.get("/")

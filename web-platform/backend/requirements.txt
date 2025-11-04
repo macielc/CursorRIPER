@@ -21,6 +21,7 @@ python-dateutil>=2.8.2
 
 # MT5 Integration
 MetaTrader5>=5.0.5388
+psutil>=5.9.0
 
 # File Handling
 pyyaml==6.0.1

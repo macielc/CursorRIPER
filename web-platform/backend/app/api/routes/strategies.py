@@ -226,34 +226,16 @@ def deactivate_strategy(strategy_name: str, db: Session = Depends(get_db)):
 def discover_strategies():
     """
     Descobre estrategias disponiveis no diretorio live_trading/strategies
+    Usa o StrategyDiscoveryService para parsing robusto
     """
-    from app.core.config import settings
+    from app.services.strategy_discovery import get_strategy_discovery
     
-    strategies_path = Path(settings.STRATEGIES_PATH)
+    service = get_strategy_discovery()
+    strategies = service.discover_strategies()
     
-    if not strategies_path.exists():
-        return {"strategies": [], "error": "Diretorio de estrategias nao encontrado"}
-    
-    discovered = []
-    
-    for config_file in strategies_path.glob("config_*.yaml"):
-        try:
-            with open(config_file, 'r', encoding='utf-8') as f:
-                config = yaml.safe_load(f)
-            
-            strategy_name = config_file.stem.replace('config_', '')
-            
-            discovered.append({
-                "name": strategy_name,
-                "display_name": config.get('strategy_name', strategy_name),
-                "config_file": str(config_file),
-                "class": config.get('strategy_class'),
-                "module": config.get('strategy_module'),
-                "parameters": config.get('parameters', {})
-            })
-        except Exception as e:
-            print(f"Erro ao ler {config_file}: {e}")
-            continue
-    
-    return {"strategies": discovered}
+    return {
+        "strategies": strategies,
+        "count": len(strategies),
+        "active_strategy": service.get_active_strategy()
+    }
 
