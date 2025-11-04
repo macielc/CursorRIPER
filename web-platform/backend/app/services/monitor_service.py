@@ -86,8 +86,20 @@ class MonitorService:
             }
         
         try:
+            # Usar Python do venv do live_trading (se existir)
+            python_venv = self.monitor_path / "venv" / "Scripts" / "python.exe"
+            if python_venv.exists():
+                python_exe = str(python_venv)
+            else:
+                # Fallback: tentar Python 3.11 global
+                python_311 = Path("C:/Python311/python.exe")
+                if python_311.exists():
+                    python_exe = str(python_311)
+                else:
+                    python_exe = "python"  # Fallback final
+            
             # Preparar comando
-            cmd = ["python", str(self.monitor_script)]
+            cmd = [python_exe, str(self.monitor_script)]
             
             # Adicionar argumentos
             if strategy_name:
