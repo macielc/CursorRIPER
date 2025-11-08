@@ -21,8 +21,8 @@ function Dashboard() {
   useEffect(() => {
     loadData();
     loadChartData();
-    const interval = setInterval(loadData, 30000); // Atualiza a cada 30s
-    const chartInterval = setInterval(loadChartData, 60000); // Atualiza grafico a cada 1 min
+    const interval = setInterval(loadData, 10000); // Atualiza a cada 10s
+    const chartInterval = setInterval(loadChartData, 10000); // Atualiza grafico a cada 10s
     return () => {
       clearInterval(interval);
       clearInterval(chartInterval);
