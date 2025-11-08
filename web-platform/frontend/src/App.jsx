@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Strategies from './pages/Strategies';
 import Monitor from './pages/Monitor';
 import History from './pages/History';
+import Settings from './pages/Settings';
 
 // Layout components
 import Sidebar from './components/Sidebar';
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/strategies" element={<Strategies />} />
                 <Route path="/monitor" element={<Monitor />} />
                 <Route path="/history" element={<History />} />
+                <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </Content>

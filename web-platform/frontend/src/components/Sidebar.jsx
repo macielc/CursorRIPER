@@ -5,7 +5,8 @@ import {
   DashboardOutlined,
   ThunderboltOutlined,
   MonitorOutlined,
-  HistoryOutlined
+  HistoryOutlined,
+  SettingOutlined
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -34,6 +35,11 @@ function Sidebar() {
       key: '/history',
       icon: <HistoryOutlined />,
       label: 'Historico'
+    },
+    {
+      key: '/settings',
+      icon: <SettingOutlined />,
+      label: 'Configuracoes'
     }
   ];
 

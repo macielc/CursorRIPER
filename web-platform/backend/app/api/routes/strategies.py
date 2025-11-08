@@ -239,3 +239,69 @@ def discover_strategies():
         "active_strategy": service.get_active_strategy()
     }
 
+
+@router.post("/{strategy_key}/parameters")
+def update_strategy_parameters(strategy_key: str, parameters: dict):
+    """
+    Atualiza parametros de uma estrategia no arquivo YAML
+    
+    Args:
+        strategy_key: Chave da estrategia (ex: barra_elefante)
+        parameters: Dicionario com os novos parametros
+    
+    Returns:
+        Confirmacao de sucesso
+    """
+    from app.core.config import settings
+    import logging
+    
+    logger = logging.getLogger(__name__)
+    
+    # Construir caminho do arquivo de configuracao
+    config_file = settings.STRATEGIES_PATH / f"config_{strategy_key}.yaml"
+    
+    if not config_file.exists():
+        logger.error(f"Arquivo de configuracao nao encontrado: {config_file}")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Estrategia '{strategy_key}' nao encontrada"
+        )
+    
+    try:
+        # Ler configuracao atual
+        with open(config_file, 'r', encoding='utf-8') as f:
+            config = yaml.safe_load(f)
+        
+        # Validar que tem secao de parametros
+        if 'parameters' not in config:
+            config['parameters'] = {}
+        
+        # Atualizar apenas os parametros fornecidos (merge)
+        config['parameters'].update(parameters)
+        
+        # Criar backup antes de salvar
+        backup_file = config_file.with_suffix('.yaml.backup')
+        with open(backup_file, 'w', encoding='utf-8') as f:
+            yaml.dump(config, f, default_flow_style=False, allow_unicode=True)
+        
+        # Salvar configuracao atualizada
+        with open(config_file, 'w', encoding='utf-8') as f:
+            yaml.dump(config, f, default_flow_style=False, allow_unicode=True)
+        
+        logger.info(f"Parametros atualizados para {strategy_key}: {parameters}")
+        
+        return {
+            "success": True,
+            "message": "Parametros atualizados com sucesso",
+            "strategy_key": strategy_key,
+            "updated_parameters": parameters,
+            "backup_file": str(backup_file)
+        }
+        
+    except Exception as e:
+        logger.error(f"Erro ao atualizar parametros: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erro ao salvar parametros: {str(e)}"
+        )
+
