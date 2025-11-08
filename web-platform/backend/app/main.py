@@ -11,7 +11,7 @@ import logging
 
 from app.core.config import settings
 from app.core.database import init_db
-from app.api.routes import strategies, orders, monitor
+from app.api.routes import strategies, orders, monitor, charts
 
 # Setup logging
 logging.basicConfig(
@@ -58,6 +58,7 @@ async def startup_event():
 app.include_router(strategies.router, prefix="/api")
 app.include_router(orders.router, prefix="/api")
 app.include_router(monitor.router, prefix="/api")
+app.include_router(charts.router, prefix="/api")
 
 # Root endpoint
 @app.get("/")

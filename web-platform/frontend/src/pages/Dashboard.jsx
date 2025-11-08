@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Statistic, Table, Typography, Spin, Alert } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { ordersAPI, strategiesAPI } from '../services/api';
+import TradingViewChart from '../components/TradingViewChart';
+import axios from 'axios';
 
 const { Title } = Typography;
 
@@ -11,11 +13,19 @@ function Dashboard() {
   const [todayOrders, setTodayOrders] = useState([]);
   const [strategies, setStrategies] = useState([]);
   const [error, setError] = useState(null);
+  const [candlesData, setCandlesData] = useState([]);
+  const [markers, setMarkers] = useState([]);
+  const [chartLoading, setChartLoading] = useState(true);
 
   useEffect(() => {
     loadData();
+    loadChartData();
     const interval = setInterval(loadData, 30000); // Atualiza a cada 30s
-    return () => clearInterval(interval);
+    const chartInterval = setInterval(loadChartData, 60000); // Atualiza grafico a cada 1 min
+    return () => {
+      clearInterval(interval);
+      clearInterval(chartInterval);
+    };
   }, []);
 
   const loadData = async () => {
@@ -35,6 +45,26 @@ function Dashboard() {
       setError('Erro ao conectar com o backend');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadChartData = async () => {
+    try {
+      setChartLoading(true);
+      
+      // Buscar candles e marcadores
+      const [candlesRes, markersRes] = await Promise.all([
+        axios.get('http://localhost:8000/api/charts/candles?symbol=WIN$&timeframe=5&bars=500'),
+        axios.get('http://localhost:8000/api/charts/markers?limit=100')
+      ]);
+      
+      setCandlesData(candlesRes.data || []);
+      setMarkers(markersRes.data || []);
+    } catch (err) {
+      console.error('Erro ao carregar dados do grafico:', err);
+      // Nao mostra erro, grafico simplesmente fica vazio
+    } finally {
+      setChartLoading(false);
     }
   };
 
@@ -109,6 +139,31 @@ function Dashboard() {
           style={{ marginBottom: 24 }}
         />
       )}
+
+      {/* Grafico de Candles */}
+      <Row style={{ marginBottom: 24 }}>
+        <Col span={24}>
+          <Card 
+            title="WIN$ - M5 (500 candles)" 
+            extra={<a onClick={loadChartData}>Atualizar</a>}
+            loading={chartLoading}
+          >
+            {candlesData.length > 0 ? (
+              <TradingViewChart 
+                data={candlesData} 
+                markers={markers}
+                height={500}
+              />
+            ) : (
+              <div style={{ textAlign: 'center', padding: '50px', color: '#888' }}>
+                Nenhum dado de grafico disponivel. 
+                <br />
+                <small>Inicie o backend e certifique-se de que o MT5 esta conectado.</small>
+              </div>
+            )}
+          </Card>
+        </Col>
+      </Row>
       
       <Row gutter={16} style={{ marginBottom: 24 }}>
         <Col span={6}>
