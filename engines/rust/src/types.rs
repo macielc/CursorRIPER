@@ -10,6 +10,8 @@ pub struct Candle {
     pub atr: f32,
     pub hour: i32,
     pub minute: i32,
+    #[serde(default)]
+    pub is_warmup: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

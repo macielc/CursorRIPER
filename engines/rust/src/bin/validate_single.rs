@@ -53,6 +53,7 @@ fn main() {
             atr: atr.get(i).unwrap(),
             hour: hour.get(i).unwrap() as i32,
             minute: minute.get(i).unwrap() as i32,
+            is_warmup: false,
         });
     }
     println!("   OK: {} candles\n", candles.len());

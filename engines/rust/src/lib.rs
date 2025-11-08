@@ -54,6 +54,7 @@ fn run_backtest_rust(
             atr: atr_slice[i],
             hour: hour_slice[i],
             minute: minute_slice[i],
+            is_warmup: false,
         });
     }
 
@@ -174,6 +175,7 @@ fn optimize_rust(
             atr: atr_slice[i],
             hour: hour_slice[i],
             minute: minute_slice[i],
+            is_warmup: false,
         });
     }
 
@@ -298,6 +300,7 @@ fn optimize_rust_with_progress(
             atr: atr_slice[i],
             hour: hour_slice[i],
             minute: minute_slice[i],
+            is_warmup: false,
         });
     }
 

@@ -126,17 +126,20 @@ impl BacktestEngine {
                     let exit_price = self.candles[i].close;
                     let pnl = calculate_pnl(pos.trade_type, pos.entry_price, exit_price);
 
-                    trades.push(Trade {
-                        entry_idx: pos.entry_idx,
-                        exit_idx: i,
-                        trade_type: pos.trade_type,
-                        entry_price: pos.entry_price,
-                        exit_price,
-                        sl: pos.sl,
-                        tp: pos.tp,
-                        pnl,
-                        exit_reason: ExitReason::IntradayClose,
-                    });
+                    // Só salvar trade se entrada NÃO foi em período de warmup
+                    if !self.candles[pos.entry_idx].is_warmup {
+                        trades.push(Trade {
+                            entry_idx: pos.entry_idx,
+                            exit_idx: i,
+                            trade_type: pos.trade_type,
+                            entry_price: pos.entry_price,
+                            exit_price,
+                            sl: pos.sl,
+                            tp: pos.tp,
+                            pnl,
+                            exit_reason: ExitReason::IntradayClose,
+                        });
+                    }
 
                     // Permitir novo sinal no mesmo candle
                 } else {
@@ -186,17 +189,20 @@ impl BacktestEngine {
                 if exit_signal {
                     let pnl = calculate_pnl(pos.trade_type, pos.entry_price, exit_price);
 
-                    trades.push(Trade {
-                        entry_idx: pos.entry_idx,
-                        exit_idx: i,
-                        trade_type: pos.trade_type,
-                        entry_price: pos.entry_price,
-                        exit_price,
-                        sl: pos.sl,
-                        tp: pos.tp,
-                        pnl,
-                        exit_reason,
-                    });
+                    // Só salvar trade se entrada NÃO foi em período de warmup
+                    if !self.candles[pos.entry_idx].is_warmup {
+                        trades.push(Trade {
+                            entry_idx: pos.entry_idx,
+                            exit_idx: i,
+                            trade_type: pos.trade_type,
+                            entry_price: pos.entry_price,
+                            exit_price,
+                            sl: pos.sl,
+                            tp: pos.tp,
+                            pnl,
+                            exit_reason,
+                        });
+                    }
 
                     position = None;
                 }

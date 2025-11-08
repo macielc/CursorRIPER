@@ -356,6 +356,13 @@ fn main() {
         minute.f32().unwrap().into_iter().map(|v| v.unwrap_or(0.0) as i32).collect()
     };
 
+    // Ler coluna is_warmup se existir (para suporte a datasets com warmup)
+    let is_warmup_vals: Vec<bool> = if let Ok(is_warmup_col) = df_filtered.column("is_warmup") {
+        is_warmup_col.bool().unwrap().into_iter().map(|v| v.unwrap_or(false)).collect()
+    } else {
+        vec![false; df_f32.height()]
+    };
+
     let mut candles = Vec::new();
     let n = df_f32.height();
     for i in 0..n {
@@ -368,6 +375,7 @@ fn main() {
             atr: atr.get(i).unwrap(),
             hour: hour_vals[i],
             minute: minute_vals[i],
+            is_warmup: is_warmup_vals[i],
         });
     }
     println!("   OK: {} candles\n", candles.len());

@@ -154,6 +154,7 @@ fn main() {
             atr: atr.get(i).unwrap(),
             hour: hour_vals[i],
             minute: minute_vals[i],
+            is_warmup: false,
         });
     }
     println!("   OK: {} candles\n", candles.len());
