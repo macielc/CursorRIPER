@@ -7,7 +7,7 @@ mod types;
 // Exportar para uso em binarios
 pub use backtest_engine::BacktestEngine;
 pub use optimizer::{generate_param_grid, Optimizer};
-pub use types::{BarraElefanteParams, BacktestResult, Candle, Metrics};
+pub use types::{BarraElefanteParams, BacktestResult, Candle, Metrics, TradeType, ExitReason};
 
 #[cfg(feature = "python")]
 use numpy::{PyArray1, PyReadonlyArray1};

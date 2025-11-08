@@ -1,0 +1,44 @@
+strategy:
+  name: "barra_elefante"
+  description: "TOP 1 Python - Validacao"
+
+param_grid:
+  min_amplitude_mult:
+    type: float
+    values: [2.0]
+  min_volume_mult:
+    type: float
+    values: [1.5]
+  max_sombra_pct:
+    type: float
+    values: [0.4]
+  lookback_amplitude:
+    type: integer
+    values: [20]
+  horario_inicio:
+    type: integer
+    values: [9]
+  minuto_inicio:
+    type: integer
+    values: [0]
+  horario_fim:
+    type: integer
+    values: [14]
+  minuto_fim:
+    type: integer
+    values: [55]
+  horario_fechamento:
+    type: integer
+    values: [15]
+  minuto_fechamento:
+    type: integer
+    values: [0]
+  sl_atr_mult:
+    type: float
+    values: [2.0]
+  tp_atr_mult:
+    type: float
+    values: [3.0]
+  usar_trailing:
+    type: boolean
+    values: [false]

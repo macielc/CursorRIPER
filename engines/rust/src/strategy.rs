@@ -4,8 +4,8 @@ use crate::types::{BarraElefanteParams, Candle};
 pub struct Signals {
     pub entries_long: Vec<bool>,
     pub entries_short: Vec<bool>,
-    pub sl_prices: Vec<f32>,
-    pub tp_prices: Vec<f32>,
+    pub sl_prices: Vec<f32>,  // Será 0.0, calculado dinamicamente no backtest
+    pub tp_prices: Vec<f32>,  // Será 0.0, calculado dinamicamente no backtest
 }
 
 // Struct para armazenar dados pre-calculados (REUTILIZAVEL entre testes)
@@ -20,9 +20,16 @@ impl PrecomputedData {
     pub fn new(candles: &[Candle], lookback: usize) -> Self {
         let amplitudes: Vec<f32> = candles.iter().map(|c| c.high - c.low).collect();
         let corpos: Vec<f32> = candles.iter().map(|c| (c.close - c.open).abs()).collect();
-        let amplitude_medias = rolling_mean(&amplitudes, lookback);
+        
+        // Calcular médias
+        let mut amplitude_medias = rolling_mean(&amplitudes, lookback);
         let volumes: Vec<f32> = candles.iter().map(|c| c.volume).collect();
-        let volume_medios = rolling_mean(&volumes, lookback);
+        let mut volume_medios = rolling_mean(&volumes, lookback);
+        
+        // SHIFT DE 1: Usar média ATÉ barra anterior (não incluir barra atual)
+        // Igual Python: np.roll(amplitude_media, 1)
+        shift_right(&mut amplitude_medias);
+        shift_right(&mut volume_medios);
         
         Self {
             amplitudes,
@@ -89,6 +96,10 @@ pub fn detect_barra_elefante_with_cache(
         let vols: Vec<f32> = candles.iter().map(|c| c.volume).collect();
         temp_vol_med = rolling_mean(&vols, lookback);
         
+        // SHIFT DE 1: Usar média ATÉ barra anterior
+        shift_right(&mut temp_amp_med);
+        shift_right(&mut temp_vol_med);
+        
         amplitudes = &temp_amp;
         corpos = &temp_corp;
         amplitude_medias = &temp_amp_med;
@@ -98,10 +109,10 @@ pub fn detect_barra_elefante_with_cache(
     // SEQUENCIAL: Paralelismo acontece NO OPTIMIZER, nao aqui!
     let results: Vec<_> = (lookback..n)
         .map(|i| {
-            let mut entry_long = false;
-            let mut entry_short = false;
-            let mut sl = 0.0;
-            let mut tp = 0.0;
+            let entry_long = false;
+            let entry_short = false;
+            let sl = 0.0;
+            let tp = 0.0;
 
             // 1) Amplitude mínima
             if amplitudes[i] < amplitude_medias[i] * params.min_amplitude_mult {
@@ -142,26 +153,47 @@ pub fn detect_barra_elefante_with_cache(
                 return (i, entry_long, entry_short, sl, tp);
             }
 
-            // Calcular SL/TP
-            let atr = candles[i].atr;
+            // VERIFICAR ROMPIMENTO NA PRÓXIMA BARRA (igual Python!)
+            if i + 1 >= n {
+                return (i, entry_long, entry_short, sl, tp);
+            }
 
+            // Barra de ALTA: verificar se próxima rompe a máxima
             if is_bullish {
-                // Barra LONG: entrada no rompimento da máxima (próxima barra)
-                if i + 1 < n {
-                    entry_long = true;
-                    let entry_price = candles[i].high; // Entrada estimada no high
-                    sl = entry_price - (atr * params.sl_atr_mult);
-                    let risk = entry_price - sl;
-                    tp = entry_price + (risk * params.tp_atr_mult);
+                let maxima_elefante = candles[i].high;
+                if candles[i + 1].high > maxima_elefante {
+                    // Verificar horário da barra de ENTRADA (i+1)
+                    if check_horario(
+                        candles[i + 1].hour,
+                        candles[i + 1].minute,
+                        params.horario_inicio,
+                        params.minuto_inicio,
+                        params.horario_fim,
+                        params.minuto_fim,
+                    ) {
+                        // Marcar sinal na barra de rompimento (i+1)
+                        // MAS retornar o índice i (loop está em i, e o sinal será aplicado em i+1 depois)
+                        // Precisamos retornar i+1 para marcar corretamente
+                        return (i + 1, true, false, sl, tp);
+                    }
                 }
-            } else if is_bearish {
-                // Barra SHORT: entrada no rompimento da mínima (próxima barra)
-                if i + 1 < n {
-                    entry_short = true;
-                    let entry_price = candles[i].low; // Entrada estimada no low
-                    sl = entry_price + (atr * params.sl_atr_mult);
-                    let risk = sl - entry_price;
-                    tp = entry_price - (risk * params.tp_atr_mult);
+            }
+            // Barra de BAIXA: verificar se próxima rompe a mínima
+            else if is_bearish {
+                let minima_elefante = candles[i].low;
+                if candles[i + 1].low < minima_elefante {
+                    // Verificar horário da barra de ENTRADA (i+1)
+                    if check_horario(
+                        candles[i + 1].hour,
+                        candles[i + 1].minute,
+                        params.horario_inicio,
+                        params.minuto_inicio,
+                        params.horario_fim,
+                        params.minuto_fim,
+                    ) {
+                        // Marcar sinal na barra de rompimento (i+1)
+                        return (i + 1, false, true, sl, tp);
+                    }
                 }
             }
 
@@ -169,12 +201,16 @@ pub fn detect_barra_elefante_with_cache(
         })
         .collect();
 
-    // Aplicar resultados
+    // Aplicar resultados (usar |= para não sobrescrever sinais já marcados)
     for (i, entry_long, entry_short, sl, tp) in results {
-        entries_long[i] = entry_long;
-        entries_short[i] = entry_short;
-        sl_prices[i] = sl;
-        tp_prices[i] = tp;
+        entries_long[i] |= entry_long;  // OR: preserva sinais anteriores
+        entries_short[i] |= entry_short;
+        if sl > 0.0 {
+            sl_prices[i] = sl;
+        }
+        if tp > 0.0 {
+            tp_prices[i] = tp;
+        }
     }
 
     Signals {
@@ -229,5 +265,21 @@ fn rolling_mean(data: &[f32], window: usize) -> Vec<f32> {
     }
 
     result
+}
+
+/// Shift direita (roll) - move todos elementos 1 posição para direita
+/// Primeiro elemento vira 0.0 (igual Python: np.roll + [0] = 0.0)
+fn shift_right(data: &mut [f32]) {
+    if data.len() == 0 {
+        return;
+    }
+    
+    // Shift: mover todos para direita
+    for i in (1..data.len()).rev() {
+        data[i] = data[i - 1];
+    }
+    
+    // Primeiro elemento = 0.0
+    data[0] = 0.0;
 }
 

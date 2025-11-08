@@ -86,13 +86,31 @@ impl BacktestEngine {
             if let Some(pending) = pending_entry.take() {
                 if position.is_none() {
                     let entry_price = self.candles[i].open; // OPEN da barra atual
+                    let atr = self.candles[i].atr; // ATR da barra de entrada
+
+                    // Calcular SL/TP com base no preço de entrada REAL
+                    // TP baseado no RISCO (não em ATR direto!)
+                    let (sl, tp) = match pending.trade_type {
+                        TradeType::Long => {
+                            let sl = entry_price - (atr * params.sl_atr_mult);
+                            let risk = entry_price - sl;  // Risk = ATR × sl_atr_mult
+                            let tp = entry_price + (risk * params.tp_atr_mult);  // TP = entry + (risk × tp_atr_mult)
+                            (sl, tp)
+                        }
+                        TradeType::Short => {
+                            let sl = entry_price + (atr * params.sl_atr_mult);
+                            let risk = sl - entry_price;  // Risk = ATR × sl_atr_mult
+                            let tp = entry_price - (risk * params.tp_atr_mult);  // TP = entry - (risk × tp_atr_mult)
+                            (sl, tp)
+                        }
+                    };
 
                     position = Some(Position {
                         entry_idx: i,
                         trade_type: pending.trade_type,
                         entry_price,
-                        sl: pending.sl,
-                        tp: pending.tp,
+                        sl,
+                        tp,
                     });
                 }
             }
@@ -189,14 +207,10 @@ impl BacktestEngine {
                 if signals.entries_long[i] {
                     pending_entry = Some(PendingEntry {
                         trade_type: TradeType::Long,
-                        sl: signals.sl_prices[i],
-                        tp: signals.tp_prices[i],
                     });
                 } else if signals.entries_short[i] {
                     pending_entry = Some(PendingEntry {
                         trade_type: TradeType::Short,
-                        sl: signals.sl_prices[i],
-                        tp: signals.tp_prices[i],
                     });
                 }
             }
@@ -218,8 +232,7 @@ struct Position {
 #[derive(Debug, Clone)]
 struct PendingEntry {
     trade_type: TradeType,
-    sl: f32,
-    tp: f32,
+    // SL/TP serão calculados dinamicamente no momento da entrada
 }
 
 #[inline]

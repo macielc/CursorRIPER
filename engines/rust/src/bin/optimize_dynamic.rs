@@ -3,7 +3,7 @@
 // SEM RECOMPILAÇÃO necessária!
 
 extern crate engine_rust;
-use engine_rust::{BarraElefanteParams, Candle, Optimizer};
+use engine_rust::{BarraElefanteParams, Candle, Optimizer, TradeType, ExitReason};
 use polars::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -419,6 +419,48 @@ fn main() {
         let optimizer = Optimizer::new_with_cache(candles.to_vec(), max_lookback);
         let results = optimizer.optimize_parallel_with_stdout_progress(batch.to_vec());
         
+        // Se é validação (max_tests == 1), salvar trades detalhados
+        if max_tests == Some(1) && !results.is_empty() && results[0].success {
+            // Salvar trades individuais
+            let trades_file = filename.replace(".csv", "_trades_detailed.csv");
+            let mut trades_wtr = csv::Writer::from_path(&trades_file)
+                .expect("Falha ao criar CSV de trades");
+            
+            // Header
+            trades_wtr.write_record(&[
+                "entry_idx", "exit_idx", "type", "entry", "exit", 
+                "sl", "tp", "pnl", "exit_reason"
+            ]).expect("Falha header");
+            
+            // Trades
+            for trade in &results[0].trades {
+                let trade_type = match trade.trade_type {
+                    TradeType::Long => "LONG",
+                    TradeType::Short => "SHORT",
+                };
+                let exit_reason = match trade.exit_reason {
+                    ExitReason::StopLoss => "SL",
+                    ExitReason::TakeProfit => "TP",
+                    ExitReason::IntradayClose => "INTRADAY",
+                };
+                
+                trades_wtr.write_record(&[
+                    trade.entry_idx.to_string(),
+                    trade.exit_idx.to_string(),
+                    trade_type.to_string(),
+                    trade.entry_price.to_string(),
+                    trade.exit_price.to_string(),
+                    trade.sl.to_string(),
+                    trade.tp.to_string(),
+                    trade.pnl.to_string(),
+                    exit_reason.to_string(),
+                ]).expect("Falha ao escrever trade");
+            }
+            trades_wtr.flush().expect("Falha flush trades");
+            println!("\n[TRADES] Salvos {} trades em: {}", results[0].trades.len(), trades_file);
+        }
+        
+        // Salvar métricas agregadas (como antes)
         for result in &results {
             wtr.write_record(&[
                 result.success.to_string(),
