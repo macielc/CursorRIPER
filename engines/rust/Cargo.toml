@@ -27,6 +27,10 @@ path = "src/bin/validate_single.rs"
 name = "optimize_smart"
 path = "src/bin/optimize_smart.rs"
 
+[[bin]]
+name = "optimize_dynamic"
+path = "src/bin/optimize_dynamic.rs"
+
 [dependencies]
 pyo3 = { version = "0.23", features = ["extension-module"], optional = true }
 numpy = { version = "0.23", optional = true }
@@ -38,6 +42,7 @@ polars = { version = "0.45", features = ["lazy", "parquet"] }
 csv = "1.3"
 chrono = "0.4"
 clap = { version = "4.5", features = ["derive"] }
+serde_yaml = "0.9"
 
 [features]
 default = ["python"]

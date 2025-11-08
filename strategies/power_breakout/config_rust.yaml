@@ -1,0 +1,74 @@
+# Configuração da Estratégia Power Breakout (EXEMPLO)
+# Demonstra como CADA estratégia pode ter parâmetros DIFERENTES
+
+strategy:
+  name: "power_breakout"
+  description: "Estratégia de rompimento com confirmação de volume"
+  version: "1.0"
+
+# PARÂMETROS TOTALMENTE DIFERENTES da Barra Elefante!
+param_grid:
+  # Esta estratégia usa parâmetros de Bollinger Bands
+  bb_period:
+    type: integer
+    values: [20, 30, 40]
+    description: "Período das Bollinger Bands"
+  
+  bb_std:
+    type: float
+    values: [2.0, 2.5, 3.0]
+    description: "Número de desvios padrão"
+  
+  # Volume mínimo para confirmação
+  min_volume_ratio:
+    type: float
+    values: [1.5, 2.0, 3.0]
+    description: "Volume mínimo em relação à média"
+  
+  # Filtro de tendência com EMA
+  ema_fast:
+    type: integer
+    values: [9, 12, 21]
+    description: "Período da EMA rápida"
+  
+  ema_slow:
+    type: integer
+    values: [50, 100, 200]
+    description: "Período da EMA lenta"
+  
+  # Parâmetros de risco (similares mas não idênticos)
+  risk_reward_ratio:
+    type: float
+    values: [1.5, 2.0, 2.5, 3.0]
+    description: "Razão risco/retorno mínima"
+  
+  max_loss_pct:
+    type: float
+    values: [0.01, 0.02, 0.03]
+    description: "Perda máxima percentual por trade"
+  
+  # Horários (podem ser os mesmos ou diferentes)
+  horario_inicio:
+    type: integer
+    values: [9]
+    fixed: true
+  
+  horario_fim:
+    type: integer
+    values: [16]
+    fixed: true
+
+execution:
+  max_tests: 1000  # Limite de testes para exemplo
+  randomize: true
+  batch_size: 2000
+
+metadata:
+  author: "MacTester Team"
+  created: "2025-11-08"
+  notes: |
+    Estratégia EXEMPLO para demonstrar flexibilidade do sistema YAML.
+    Parâmetros completamente diferentes da Barra Elefante!
+    
+    Total de combinações: 3 * 3 * 3 * 3 * 3 * 4 * 3 = 8,748 testes
+
