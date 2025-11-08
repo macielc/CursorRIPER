@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Form, InputNumber, Button, Select, message, Space, Typography, Spin, Alert, Input, Divider } from 'antd';
-import { SaveOutlined, ReloadOutlined, SettingOutlined } from '@ant-design/icons';
+import { Card, Form, InputNumber, Button, Select, message, Space, Typography, Spin, Alert, Input, Divider, Tooltip } from 'antd';
+import { SaveOutlined, ReloadOutlined, SettingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 const { Title, Text } = Typography;
@@ -21,7 +21,9 @@ function Settings() {
   const loadStrategies = async () => {
     try {
       setLoading(true);
+      console.log('Tentando carregar estrategias de: http://localhost:8000/api/strategies/discover/available');
       const response = await axios.get('http://localhost:8000/api/strategies/discover/available');
+      console.log('Resposta recebida:', response.data);
       const strategiesData = response.data.strategies || [];
       
       setStrategies(strategiesData);
@@ -29,10 +31,14 @@ function Settings() {
       // Selecionar primeira estrategia por padrao
       if (strategiesData.length > 0) {
         selectStrategy(strategiesData[0]);
+      } else {
+        console.warn('Nenhuma estrategia encontrada na resposta');
       }
     } catch (error) {
-      console.error('Erro ao carregar estrategias:', error);
-      message.error('Erro ao carregar lista de estrategias');
+      console.error('Erro DETALHADO ao carregar estrategias:', error);
+      console.error('Erro response:', error.response);
+      console.error('Erro message:', error.message);
+      message.error(`Erro ao carregar lista de estrategias: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -85,26 +91,64 @@ function Settings() {
     }
   };
 
+  // Dicionario de descricoes dos parametros
+  const parameterDescriptions = {
+    // Amplitude e Volume
+    'min_amplitude_mult': 'Multiplicador da amplitude minima. Candles com amplitude maior que (media * este valor) sao considerados "elefantes"',
+    'min_volume_mult': 'Multiplicador do volume minimo. Candles com volume maior que (media * este valor) sao considerados "elefantes"',
+    'max_sombra_pct': 'Percentual maximo de sombra (pavio) permitido em relacao ao corpo do candle',
+    'lookback_amplitude': 'Numero de candles anteriores para calcular a media de amplitude',
+    'lookback_volume': 'Numero de candles anteriores para calcular a media de volume',
+    
+    // Horarios
+    'horario_inicio': 'Hora de inicio das operacoes (formato 24h)',
+    'minuto_inicio': 'Minuto de inicio das operacoes',
+    'horario_fim': 'Hora limite para NOVAS entradas (formato 24h)',
+    'minuto_fim': 'Minuto limite para novas entradas',
+    'horario_fechamento': 'Hora de fechamento forcado de todas as posicoes',
+    'minuto_fechamento': 'Minuto de fechamento forcado',
+    
+    // Stop Loss e Take Profit
+    'sl_atr_mult': 'Multiplicador do ATR para calcular o Stop Loss. SL = preco_entrada +/- (ATR * este valor)',
+    'tp_atr_mult': 'Multiplicador do ATR para calcular o Take Profit. TP = preco_entrada +/- (ATR * este valor)',
+    
+    // Gerais
+    'atr_period': 'Periodo (numero de candles) para calcular o Average True Range (ATR)',
+    'volume_bars': 'Numero de barras para calcular a media de volume',
+    'enable_trailing_stop': 'Ativar trailing stop (stop loss que acompanha o preco a favor)',
+    'trailing_stop_distance': 'Distancia em pontos para o trailing stop',
+  };
+
   const renderParameterInput = (key, value) => {
     const label = key
       .replace(/_/g, ' ')
       .split(' ')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
+    
+    const description = parameterDescriptions[key] || 'Parametro da estrategia';
 
     if (typeof value === 'number') {
       // Parametros numericos
       return (
         <Form.Item
           key={key}
-          label={label}
+          label={
+            <Space>
+              <span>{label}</span>
+              <Tooltip title={description}>
+                <QuestionCircleOutlined style={{ color: '#1890ff', cursor: 'help' }} />
+              </Tooltip>
+            </Space>
+          }
           name={key}
           rules={[{ required: true, message: `${label} e obrigatorio` }]}
+          help={<Text type="secondary" style={{ fontSize: 12 }}>{description}</Text>}
         >
           <InputNumber
-            style={{ width: 200 }}
-            step={key.includes('ratio') || key.includes('mult') ? 0.1 : 1}
-            precision={key.includes('ratio') || key.includes('mult') ? 1 : 0}
+            style={{ width: '100%' }}
+            step={key.includes('ratio') || key.includes('mult') || key.includes('pct') ? 0.1 : 1}
+            precision={key.includes('ratio') || key.includes('mult') || key.includes('pct') ? 1 : 0}
           />
         </Form.Item>
       );
@@ -113,11 +157,19 @@ function Settings() {
       return (
         <Form.Item
           key={key}
-          label={label}
+          label={
+            <Space>
+              <span>{label}</span>
+              <Tooltip title={description}>
+                <QuestionCircleOutlined style={{ color: '#1890ff', cursor: 'help' }} />
+              </Tooltip>
+            </Space>
+          }
           name={key}
           valuePropName="checked"
+          help={<Text type="secondary" style={{ fontSize: 12 }}>{description}</Text>}
         >
-          <Select style={{ width: 200 }}>
+          <Select style={{ width: '100%' }}>
             <Option value={true}>Sim</Option>
             <Option value={false}>Nao</Option>
           </Select>
@@ -128,11 +180,19 @@ function Settings() {
       return (
         <Form.Item
           key={key}
-          label={label}
+          label={
+            <Space>
+              <span>{label}</span>
+              <Tooltip title={description}>
+                <QuestionCircleOutlined style={{ color: '#1890ff', cursor: 'help' }} />
+              </Tooltip>
+            </Space>
+          }
           name={key}
           rules={[{ required: true, message: `${label} e obrigatorio` }]}
+          help={<Text type="secondary" style={{ fontSize: 12 }}>{description}</Text>}
         >
-          <Input style={{ width: 200 }} />
+          <Input style={{ width: '100%' }} />
         </Form.Item>
       );
     }
@@ -141,10 +201,18 @@ function Settings() {
     return (
       <Form.Item
         key={key}
-        label={label}
+        label={
+          <Space>
+            <span>{label}</span>
+            <Tooltip title={description}>
+              <QuestionCircleOutlined style={{ color: '#1890ff', cursor: 'help' }} />
+            </Tooltip>
+          </Space>
+        }
         name={key}
+        help={<Text type="secondary" style={{ fontSize: 12 }}>{description}</Text>}
       >
-        <Input style={{ width: 200 }} />
+        <Input style={{ width: '100%' }} />
       </Form.Item>
     );
   };
@@ -252,14 +320,41 @@ function Settings() {
             onFinish={handleSave}
             initialValues={parameters}
           >
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
-              gap: '16px' 
-            }}>
-              {Object.entries(parameters).map(([key, value]) => 
-                renderParameterInput(key, value)
-              )}
+            {/* Parametros organizados em secoes */}
+            <div style={{ maxWidth: 800 }}>
+              <Divider orientation="left">Parametros de Deteccao</Divider>
+              {Object.entries(parameters)
+                .filter(([key]) => key.includes('amplitude') || key.includes('volume') || key.includes('sombra') || key.includes('lookback'))
+                .map(([key, value]) => renderParameterInput(key, value))
+              }
+
+              <Divider orientation="left">Horarios de Operacao</Divider>
+              {Object.entries(parameters)
+                .filter(([key]) => key.includes('horario') || key.includes('minuto'))
+                .map(([key, value]) => renderParameterInput(key, value))
+              }
+
+              <Divider orientation="left">Stop Loss e Take Profit</Divider>
+              {Object.entries(parameters)
+                .filter(([key]) => key.includes('sl_') || key.includes('tp_') || key.includes('atr'))
+                .map(([key, value]) => renderParameterInput(key, value))
+              }
+
+              <Divider orientation="left">Outros Parametros</Divider>
+              {Object.entries(parameters)
+                .filter(([key]) => 
+                  !key.includes('amplitude') && 
+                  !key.includes('volume') && 
+                  !key.includes('sombra') && 
+                  !key.includes('lookback') &&
+                  !key.includes('horario') && 
+                  !key.includes('minuto') &&
+                  !key.includes('sl_') && 
+                  !key.includes('tp_') && 
+                  !key.includes('atr')
+                )
+                .map(([key, value]) => renderParameterInput(key, value))
+              }
             </div>
 
             <Divider />
