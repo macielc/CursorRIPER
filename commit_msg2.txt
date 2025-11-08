@@ -1,0 +1,39 @@
+feat: Adicionar coluna ORDEM ABERTA e melhorar colunas no Dashboard
+
+DASHBOARD - Ordens Hoje:
+- Adicionar TODAS as colunas do Historico
+  - Data/Hora (completa, nao apenas horario)
+  - Estrategia
+  - Simbolo
+  - Tipo (Tag verde/vermelho)
+  - Entrada
+  - Saida (novo)
+  - Resultado (novo - 3 estados)
+  - Pts (novo)
+  - PnL R$ (novo)
+  - Status (Tag colorida)
+
+COLUNA RESULTADO - 3 Estados:
+1. ORDEM ABERTA (azul #1890ff)
+   - Quando status = pending ou filled
+   - Quando pnl_points = null/undefined
+   - Ordem ainda nao foi fechada
+
+2. GAIN (verde #52c41a)
+   - Quando pnl_points > 0
+   - Ordem fechada com lucro
+
+3. LOSS (vermelho #ff4d4f)
+   - Quando pnl_points < 0
+   - Ordem fechada com prejuizo
+
+APLICADO EM:
+- Dashboard (Ordens Hoje)
+- History (Historico de Ordens)
+
+BENEFICIOS:
+- Consistencia entre Dashboard e Historico
+- Usuario identifica ordens abertas facilmente
+- Todas as informacoes importantes visiveis
+- Visual profissional com cores e Tags
+

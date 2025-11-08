@@ -1,57 +1,29 @@
-# ========================================
-# ESTRATEGIA: BARRA ELEFANTE
-# ========================================
-# Arquivo de configuracao especifico da estrategia Barra Elefante
-# Modular e independente do motor de live trading
-
-strategy_name: "Barra Elefante V2.0"
-strategy_class: "BarraElefante"
-strategy_module: "barra_elefante.strategy"
-
-# ========================================
-# PARAMETROS DA ESTRATEGIA
-# ========================================
-# Validados em backtest de janeiro/2024
-# Resultado: 27 trades detectados
-# Periodo testado: 2024-01-01 a 2024-01-31
-# Timeframe: M5
-
-parameters:
-  # Deteccao de elefante
-  min_amplitude_mult: 1.35      # Multiplicador de amplitude (candle maior que media)
-  min_volume_mult: 1.3          # Multiplicador de volume (volume maior que media)
-  max_sombra_pct: 0.30          # Maximo 30% de sombra no corpo do candle
-  lookback_amplitude: 25        # Candles para calcular media de amplitude
-  lookback_volume: 20           # Candles para calcular media de volume
-  
-  # Horarios de operacao (horario de Brasilia)
-  horario_inicio: 9             # Hora de inicio (9h)
-  minuto_inicio: 15             # Minuto de inicio (15 min = 9:15)
-  horario_fim: 11               # Hora de fim (11h)
-  minuto_fim: 0                 # Minuto de fim (0 min = 11:00)
-  
-  # Fechamento intraday (fecha posicoes abertas)
-  horario_fechamento: 12        # Hora de fechamento forcado (12h)
-  minuto_fechamento: 15         # Minuto de fechamento (15 min = 12:15)
-  
-  # Stop Loss e Take Profit (baseados em ATR)
-  sl_atr_mult: 2.0              # Stop Loss = 2x ATR
-  tp_atr_mult: 3.0              # Take Profit = 3x ATR
-
-# ========================================
-# METADADOS (opcional)
-# ========================================
 metadata:
-  author: "MacTester Team"
-  version: "2.0"
-  last_updated: "2024-11-03"
-  description: "Detecta candles elefante (alta amplitude + alto volume) e entra no rompimento"
-  
-  # Resultados historicos
+  author: MacTester Team
   backtest_results:
-    period: "2024-01-01 a 2024-01-31"
-    timeframe: "M5"
+    period: 2024-01-01 a 2024-01-31
+    profit_factor: N/A
+    timeframe: M5
     trades: 27
-    win_rate: "N/A"  # Atualizar apos validacao
-    profit_factor: "N/A"  # Atualizar apos validacao
-
+    win_rate: N/A
+  description: Detecta candles elefante (alta amplitude + alto volume) e entra no
+    rompimento
+  last_updated: '2024-11-03'
+  version: '2.0'
+parameters:
+  horario_fechamento: 12
+  horario_fim: 11
+  horario_inicio: 9
+  lookback_amplitude: 30
+  lookback_volume: 20
+  max_sombra_pct: 0.3
+  min_amplitude_mult: 1.5
+  min_volume_mult: 1.4
+  minuto_fechamento: 15
+  minuto_fim: 0
+  minuto_inicio: 15
+  sl_atr_mult: 2
+  tp_atr_mult: 3
+strategy_class: BarraElefante
+strategy_module: barra_elefante.strategy
+strategy_name: Barra Elefante V2.0

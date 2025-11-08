@@ -1,0 +1,35 @@
+feat: Adicionar seletor de intervalo de atualizacao no Dashboard
+
+NOVA FUNCIONALIDADE:
+- Botoes de intervalo de atualizacao
+  - 5s (rapido, alta carga)
+  - 10s (padrao, recomendado)
+  - 30s (balanceado)
+  - 60s (economia de recursos)
+
+- Estado refreshInterval (dinamico)
+  - useEffect recria intervalos ao mudar
+  - Aplica tanto para dados quanto para grafico
+  - Botao ativo destacado (primary)
+
+- Tooltips informativos
+  - Atualizar a cada X segundos
+
+LAYOUT:
+- Botoes compactos ao lado dos timeframes
+- Icones visuais para cada velocidade
+- Cores consistentes com tema
+
+BENEFICIOS:
+- Usuario escolhe velocidade conforme necessidade
+- Scalping = 5s (rapido)
+- Daytrading = 10s (padrao)
+- Swing = 30s-60s (economico)
+- Flexibilidade sem recarregar pagina
+
+IMPACTO:
+- 5s: 12 req/min (alto)
+- 10s: 6 req/min (medio)
+- 30s: 2 req/min (baixo)
+- 60s: 1 req/min (minimo)
+
