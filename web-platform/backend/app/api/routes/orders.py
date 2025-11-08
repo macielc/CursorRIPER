@@ -209,3 +209,88 @@ def get_today_summary(db: Session = Depends(get_db)):
         "orders": orders_today
     }
 
+
+@router.get("/export")
+def export_orders(
+    format: str = Query("csv", description="Formato: csv ou excel"),
+    strategy_name: Optional[str] = None,
+    symbol: Optional[str] = None,
+    status: Optional[OrderStatus] = None,
+    date_from: Optional[str] = Query(None, description="YYYY-MM-DD"),
+    date_to: Optional[str] = Query(None, description="YYYY-MM-DD"),
+    db: Session = Depends(get_db)
+):
+    """
+    Exporta ordens para CSV ou Excel
+    """
+    from fastapi.responses import StreamingResponse
+    import pandas as pd
+    import io
+    
+    # Buscar ordens com os mesmos filtros do list_orders
+    query = db.query(Order)
+    
+    if strategy_name:
+        query = query.filter(Order.strategy_name == strategy_name)
+    
+    if symbol:
+        query = query.filter(Order.symbol == symbol)
+    
+    if status:
+        query = query.filter(Order.status == status)
+    
+    if date_from:
+        date_from_obj = datetime.strptime(date_from, "%Y-%m-%d")
+        query = query.filter(Order.created_at >= date_from_obj)
+    
+    if date_to:
+        date_to_obj = datetime.strptime(date_to, "%Y-%m-%d") + timedelta(days=1)
+        query = query.filter(Order.created_at < date_to_obj)
+    
+    orders = query.order_by(Order.created_at.desc()).all()
+    
+    # Converter para DataFrame
+    data = []
+    for o in orders:
+        data.append({
+            'ID': o.id,
+            'Data/Hora': o.created_at.strftime('%d/%m/%Y %H:%M:%S') if o.created_at else '',
+            'Estrategia': o.strategy_name,
+            'Simbolo': o.symbol,
+            'Acao': 'COMPRA' if o.action == OrderAction.BUY else 'VENDA',
+            'Preco Entrada': o.entry_price,
+            'Preco Saida': o.exit_price if o.exit_price else '',
+            'Stop Loss': o.sl_price if o.sl_price else '',
+            'Take Profit': o.tp_price if o.tp_price else '',
+            'Volume': o.volume,
+            'Resultado': 'GAIN' if (o.pnl_points and o.pnl_points > 0) else ('LOSS' if (o.pnl_points and o.pnl_points < 0) else ''),
+            'PnL Pontos': o.pnl_points if o.pnl_points else 0,
+            'PnL Reais': o.pnl_currency if o.pnl_currency else 0,
+            'Status': o.status.value if o.status else '',
+            'MT5 Order ID': o.mt5_order_id if o.mt5_order_id else '',
+            'Preenchida em': o.filled_at.strftime('%d/%m/%Y %H:%M:%S') if o.filled_at else '',
+            'Fechada em': o.closed_at.strftime('%d/%m/%Y %H:%M:%S') if o.closed_at else '',
+        })
+    
+    df = pd.DataFrame(data)
+    
+    # Gerar arquivo
+    buffer = io.BytesIO()
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    if format.lower() == "excel":
+        df.to_excel(buffer, index=False, engine='openpyxl')
+        media_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        filename = f"orders_{timestamp}.xlsx"
+    else:  # CSV
+        df.to_csv(buffer, index=False, encoding='utf-8-sig')  # utf-8-sig para Excel abrir corretamente
+        media_type = "text/csv"
+        filename = f"orders_{timestamp}.csv"
+    
+    buffer.seek(0)
+    
+    return StreamingResponse(
+        buffer,
+        media_type=media_type,
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )

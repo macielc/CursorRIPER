@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, DatePicker, Select, Space, Typography, Button, Tag, Row, Col } from 'antd';
-import { ReloadOutlined, DownloadOutlined, SearchOutlined, ClearOutlined } from '@ant-design/icons';
+import { Card, Table, DatePicker, Select, Space, Typography, Button, Tag, Row, Col, Dropdown, message } from 'antd';
+import { ReloadOutlined, DownloadOutlined, SearchOutlined, ClearOutlined, FileExcelOutlined, FileTextOutlined } from '@ant-design/icons';
 import { ordersAPI, strategiesAPI } from '../services/api';
 import dayjs from 'dayjs';
 
@@ -9,8 +9,46 @@ const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 function History() {
-  const [loading, setLoading] = useState(true);
-  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [orders, setOrders] = useState([
+    // DADOS SIMULADOS PARA DEMONSTRACAO
+    {
+      id: 1,
+      mt5_order_id: '123456',
+      strategy_name: 'Barra Elefante',
+      symbol: 'WIN$',
+      action: 'buy',
+      status: 'tp_hit',
+      entry_price: 163450,
+      exit_price: 163800,
+      sl_price: 163200,
+      tp_price: 163800,
+      volume: 1.0,
+      pnl_points: 350.00,
+      pnl_currency: 875.00,
+      created_at: '2025-11-08T10:15:00',
+      filled_at: '2025-11-08T10:15:05',
+      closed_at: '2025-11-08T10:45:30'
+    },
+    {
+      id: 2,
+      mt5_order_id: '123457',
+      strategy_name: 'Barra Elefante',
+      symbol: 'WIN$',
+      action: 'sell',
+      status: 'sl_hit',
+      entry_price: 163200,
+      exit_price: 163350,
+      sl_price: 163350,
+      tp_price: 162850,
+      volume: 1.0,
+      pnl_points: -150.00,
+      pnl_currency: -375.00,
+      created_at: '2025-11-08T11:30:00',
+      filled_at: '2025-11-08T11:30:05',
+      closed_at: '2025-11-08T11:42:15'
+    }
+  ]);
   const [strategies, setStrategies] = useState([]);
   const [filters, setFilters] = useState(() => {
     // Carregar filtros salvos do localStorage
@@ -33,7 +71,7 @@ function History() {
 
   useEffect(() => {
     loadStrategies();
-    loadOrders();
+    // loadOrders(); // COMENTADO PARA MOSTRAR DADOS SIMULADOS
   }, []);
 
   const loadStrategies = async () => {
@@ -98,6 +136,47 @@ function History() {
     // Recarregar sem filtros
     setTimeout(() => loadOrders(), 100);
   };
+
+  const handleExport = (format) => {
+    try {
+      // Preparar parametros (mesmos dos filtros)
+      const params = new URLSearchParams();
+      params.append('format', format);
+      
+      if (filters.dateRange && filters.dateRange[0] && filters.dateRange[1]) {
+        params.append('date_from', filters.dateRange[0].format('YYYY-MM-DD'));
+        params.append('date_to', filters.dateRange[1].format('YYYY-MM-DD'));
+      }
+      
+      if (filters.symbol) params.append('symbol', filters.symbol);
+      if (filters.strategy) params.append('strategy_name', filters.strategy);
+      if (filters.status) params.append('status', filters.status);
+      
+      // Criar URL e abrir em nova aba para download
+      const url = `http://localhost:8000/api/orders/export?${params.toString()}`;
+      window.open(url, '_blank');
+      
+      message.success(`Exportando ${orders.length} ordens para ${format.toUpperCase()}...`);
+    } catch (error) {
+      console.error('Erro ao exportar:', error);
+      message.error('Erro ao exportar ordens');
+    }
+  };
+
+  const exportMenuItems = [
+    {
+      key: 'csv',
+      label: 'Exportar CSV',
+      icon: <FileTextOutlined />,
+      onClick: () => handleExport('csv')
+    },
+    {
+      key: 'excel',
+      label: 'Exportar Excel',
+      icon: <FileExcelOutlined />,
+      onClick: () => handleExport('excel')
+    }
+  ];
 
   const columns = [
     {
@@ -217,9 +296,11 @@ function History() {
           <Button icon={<ReloadOutlined />} onClick={loadOrders}>
             Atualizar
           </Button>
-          <Button icon={<DownloadOutlined />}>
-            Exportar
-          </Button>
+          <Dropdown menu={{ items: exportMenuItems }} placement="bottomRight">
+            <Button icon={<DownloadOutlined />}>
+              Exportar
+            </Button>
+          </Dropdown>
         </Space>
       </div>
 

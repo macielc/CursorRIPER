@@ -18,6 +18,8 @@ python-socketio==5.10.0
 pydantic>=2.10.0
 pydantic-settings>=2.6.0
 python-dateutil>=2.8.2
+pandas>=2.0.0
+openpyxl>=3.1.0
 
 # MT5 Integration
 MetaTrader5>=5.0.45
