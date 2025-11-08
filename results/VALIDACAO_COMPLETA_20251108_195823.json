@@ -1,0 +1,50 @@
+{
+  "estrategia": "barra_elefante",
+  "params": {
+    "min_amplitude_mult": 2.0,
+    "min_volume_mult": 1.5,
+    "max_sombra_pct": 0.4,
+    "lookback_amplitude": 20,
+    "horario_inicio": 9,
+    "minuto_inicio": 0,
+    "horario_fim": 14,
+    "minuto_fim": 55,
+    "horario_fechamento": 15,
+    "minuto_fechamento": 0,
+    "sl_atr_mult": 2.0,
+    "tp_atr_mult": 3.0,
+    "usar_trailing": false
+  },
+  "timestamp": "2025-11-08T19:58:21.846404",
+  "fase4": {
+    "aprovado": true,
+    "trades": 132,
+    "sharpe": 1.4531869375458077,
+    "win_rate": 0.30303030303030304,
+    "return": 9325.286010742188,
+    "periodo_inicio": "2025-04-30",
+    "periodo_fim": "2025-10-31"
+  },
+  "fase5": {
+    "aprovado": false,
+    "sharpe_original": 0.4840139662178785,
+    "sharpe_sem_outliers": -2.6871893383554526,
+    "degradacao_pct": -655.1883883337814,
+    "trades_removidos": 174,
+    "trades_restantes": 704
+  },
+  "monte_carlo": {
+    "aprovado": true,
+    "prob_equity_positiva": 1.0,
+    "sharpe_mean": 0.48401396621787846,
+    "sharpe_p5": 0.48401396621787846,
+    "sharpe_p95": 0.4840139662178785,
+    "max_dd_mean": -22617.602292884825,
+    "max_dd_p5": -33887.42850494385,
+    "equity_p5": 24575.428192138672,
+    "equity_p50": 24575.428192138672,
+    "equity_p95": 24575.428192138672
+  },
+  "total_aprovado": 2,
+  "aprovacao_final": true
+}
