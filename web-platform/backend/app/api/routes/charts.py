@@ -34,6 +34,7 @@ def get_candles(
         # Mapear timeframe para constante MT5
         timeframe_map = {
             1: mt5.TIMEFRAME_M1,
+            2: mt5.TIMEFRAME_M2,  # ADICIONADO M2
             5: mt5.TIMEFRAME_M5,
             15: mt5.TIMEFRAME_M15,
             30: mt5.TIMEFRAME_M30,
