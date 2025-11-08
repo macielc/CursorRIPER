@@ -160,13 +160,35 @@ function History() {
       }
     },
     {
-      title: 'PnL',
+      title: 'Pts',
       dataIndex: 'pnl_points',
       key: 'pnl_points',
+      align: 'right',
       render: (value) => {
         if (value === null || value === undefined) return '-';
         const color = value > 0 ? '#52c41a' : value < 0 ? '#ff4d4f' : 'default';
-        return <span style={{ color, fontWeight: 500 }}>{value.toFixed(2)}</span>;
+        const sign = value > 0 ? '+' : '';
+        return <span style={{ color, fontWeight: 500 }}>{sign}{value.toFixed(2)}</span>;
+      }
+    },
+    {
+      title: 'PnL (R$)',
+      dataIndex: 'pnl_currency',
+      key: 'pnl_currency',
+      align: 'right',
+      render: (value) => {
+        if (value === null || value === undefined) return '-';
+        const color = value > 0 ? '#52c41a' : value < 0 ? '#ff4d4f' : 'default';
+        return (
+          <span style={{ color, fontWeight: 600 }}>
+            {value.toLocaleString('pt-BR', { 
+              style: 'currency', 
+              currency: 'BRL',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            })}
+          </span>
+        );
       }
     },
     {
