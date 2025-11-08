@@ -1,0 +1,76 @@
+strategy:
+  name: "barra_elefante"
+  description: "Smoke Test - Grid Otimizado para 24 cores"
+
+# Grid inteligente: ~10,000 combinações
+# Tempo estimado: 2-3 horas com 24 cores
+
+param_grid:
+  # Amplitude: Quão maior que a média precisa ser
+  min_amplitude_mult:
+    type: float
+    values: [1.5, 1.75, 2.0, 2.25, 2.5, 3.0]  # 6 valores
+  
+  # Volume: Quão maior que a média precisa ser
+  min_volume_mult:
+    type: float
+    values: [1.2, 1.5, 2.0, 2.5]  # 4 valores
+  
+  # Corpo: % mínima do corpo (sombras máximas)
+  max_sombra_pct:
+    type: float
+    values: [0.3, 0.35, 0.4, 0.45, 0.5]  # 5 valores
+  
+  # Lookback: Período para médias móveis
+  lookback_amplitude:
+    type: integer
+    values: [10, 15, 20, 25, 30]  # 5 valores
+  
+  # Stop Loss: Múltiplo do ATR
+  sl_atr_mult:
+    type: float
+    values: [1.5, 2.0, 2.5, 3.0]  # 4 valores
+  
+  # Take Profit: Múltiplo do ATR
+  tp_atr_mult:
+    type: float
+    values: [2.0, 2.5, 3.0, 4.0, 5.0]  # 5 valores
+  
+  # Trailing Stop (desabilitado por enquanto)
+  usar_trailing:
+    type: boolean
+    values: [false]  # 1 valor
+
+  # Horários (fixos por enquanto)
+  horario_inicio:
+    type: integer
+    values: [9]
+  
+  minuto_inicio:
+    type: integer
+    values: [0]
+  
+  horario_fim:
+    type: integer
+    values: [14]
+  
+  minuto_fim:
+    type: integer
+    values: [55]
+  
+  horario_fechamento:
+    type: integer
+    values: [15]
+  
+  minuto_fechamento:
+    type: integer
+    values: [0]
+
+# Execução
+execution:
+  max_tests: null  # Testar TODAS as combinações
+  min_trades: 50   # Mínimo de trades para considerar válido
+  save_top_n: 100  # Salvar TOP 100 resultados
+
+# Total de combinações: 6 × 4 × 5 × 5 × 4 × 5 × 1 = 12,000 combinações
+
