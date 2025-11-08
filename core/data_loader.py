@@ -13,8 +13,8 @@ class DataLoader:
     """
     
     TIMEFRAMES = {
-        '5m': '../../data/WINFUT_M5_Golden_Data',  # Sem extensao (auto-detecta .parquet ou .csv)
-        '15m': '../../data/WINFUT_M15_Golden_Data'
+        '5m': '../data/golden/WINFUT_M5_Golden_Data',  # Sem extensao (auto-detecta .parquet ou .csv)
+        '15m': '../data/golden/WINFUT_M15_Golden_Data'
     }
     
     def __init__(self, timeframe: str = '5m'):
