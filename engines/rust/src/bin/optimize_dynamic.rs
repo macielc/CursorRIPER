@@ -305,9 +305,9 @@ fn main() {
 
     println!("   Total: {} candles ({:.2}s)", df.height(), start_load.elapsed().as_secs_f64());
 
-    // Filtrar horário de pregão
+    // Filtrar horário de pregão (9h-15h, IGUAL AO PYTHON!)
     let df_filtered = df.lazy()
-        .filter(col("hour").gt_eq(lit(9)).and(col("hour").lt_eq(lit(14))))
+        .filter(col("hour").gt_eq(lit(9)).and(col("hour").lt_eq(lit(15))))
         .collect()
         .expect("Falha filtro horário");
 
