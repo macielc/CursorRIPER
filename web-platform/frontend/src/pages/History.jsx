@@ -222,8 +222,22 @@ function History() {
       dataIndex: 'pnl_points',
       key: 'resultado',
       align: 'center',
-      render: (value) => {
-        if (value === null || value === undefined) return '-';
+      render: (value, record) => {
+        // Se a ordem ainda está aberta (não foi fechada)
+        const isOpen = record.status === 'pending' || record.status === 'filled';
+        
+        if (isOpen || value === null || value === undefined) {
+          return (
+            <span style={{ 
+              color: '#1890ff', // Azul
+              fontWeight: 600,
+              fontSize: '13px'
+            }}>
+              ORDEM ABERTA
+            </span>
+          );
+        }
+        
         const isGain = value > 0;
         const color = isGain ? '#52c41a' : '#ff4d4f'; // Verde: #52c41a, Vermelho: #ff4d4f
         const text = isGain ? 'GAIN' : 'LOSS';

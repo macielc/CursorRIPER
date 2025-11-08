@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Statistic, Table, Typography, Spin, Alert, Button, Space } from 'antd';
+import { Card, Row, Col, Statistic, Table, Typography, Spin, Alert, Button, Space, Tag } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { ordersAPI, strategiesAPI } from '../services/api';
 import TradingViewChart from '../components/TradingViewChart';
@@ -108,15 +108,15 @@ function Dashboard() {
 
   const columns = [
     {
-      title: 'Horario',
+      title: 'Data/Hora',
       dataIndex: 'created_at',
-      key: 'time',
-      render: (text) => new Date(text).toLocaleTimeString('pt-BR')
+      key: 'created_at',
+      render: (text) => new Date(text).toLocaleString('pt-BR')
     },
     {
       title: 'Estrategia',
       dataIndex: 'strategy_name',
-      key: 'strategy'
+      key: 'strategy_name'
     },
     {
       title: 'Simbolo',
@@ -128,16 +128,89 @@ function Dashboard() {
       dataIndex: 'action',
       key: 'action',
       render: (text) => (
-        <span style={{ color: text === 'buy' ? '#3f8600' : '#cf1322' }}>
+        <Tag color={text === 'buy' ? 'green' : 'red'}>
           {text === 'buy' ? 'COMPRA' : 'VENDA'}
-        </span>
+        </Tag>
       )
     },
     {
-      title: 'Preco',
+      title: 'Entrada',
       dataIndex: 'entry_price',
-      key: 'price',
+      key: 'entry_price',
       render: (value) => value?.toFixed(2)
+    },
+    {
+      title: 'Saida',
+      dataIndex: 'exit_price',
+      key: 'exit_price',
+      render: (value) => value ? value.toFixed(2) : '-'
+    },
+    {
+      title: 'Resultado',
+      dataIndex: 'pnl_points',
+      key: 'resultado',
+      align: 'center',
+      render: (value, record) => {
+        // Se a ordem ainda está aberta (não foi fechada)
+        const isOpen = record.status === 'pending' || record.status === 'filled';
+        
+        if (isOpen || value === null || value === undefined) {
+          return (
+            <span style={{ 
+              color: '#1890ff', // Azul
+              fontWeight: 600,
+              fontSize: '13px'
+            }}>
+              ORDEM ABERTA
+            </span>
+          );
+        }
+        
+        const isGain = value > 0;
+        const color = isGain ? '#52c41a' : '#ff4d4f'; // Verde: #52c41a, Vermelho: #ff4d4f
+        const text = isGain ? 'GAIN' : 'LOSS';
+        return (
+          <span style={{ 
+            color: color, 
+            fontWeight: 600,
+            fontSize: '13px'
+          }}>
+            {text}
+          </span>
+        );
+      }
+    },
+    {
+      title: 'Pts',
+      dataIndex: 'pnl_points',
+      key: 'pnl_points',
+      align: 'right',
+      render: (value) => {
+        if (value === null || value === undefined) return '-';
+        const color = value > 0 ? '#52c41a' : value < 0 ? '#ff4d4f' : 'default';
+        const sign = value > 0 ? '+' : '';
+        return <span style={{ color, fontWeight: 500 }}>{sign}{value.toFixed(2)}</span>;
+      }
+    },
+    {
+      title: 'PnL (R$)',
+      dataIndex: 'pnl_currency',
+      key: 'pnl_currency',
+      align: 'right',
+      render: (value) => {
+        if (value === null || value === undefined) return '-';
+        const color = value > 0 ? '#52c41a' : value < 0 ? '#ff4d4f' : 'default';
+        return (
+          <span style={{ color, fontWeight: 600 }}>
+            {value.toLocaleString('pt-BR', { 
+              style: 'currency', 
+              currency: 'BRL',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            })}
+          </span>
+        );
+      }
     },
     {
       title: 'Status',
@@ -145,13 +218,14 @@ function Dashboard() {
       key: 'status',
       render: (text) => {
         const statusMap = {
-          'pending': 'Pendente',
-          'filled': 'Preenchida',
-          'tp_hit': 'TP Atingido',
-          'sl_hit': 'SL Atingido',
-          'closed': 'Fechada'
+          'pending': { text: 'Pendente', color: 'default' },
+          'filled': { text: 'Preenchida', color: 'blue' },
+          'tp_hit': { text: 'TP Atingido', color: 'green' },
+          'sl_hit': { text: 'SL Atingido', color: 'red' },
+          'closed': { text: 'Fechada', color: 'default' }
         };
-        return statusMap[text] || text;
+        const status = statusMap[text] || { text, color: 'default' };
+        return <Tag color={status.color}>{status.text}</Tag>;
       }
     }
   ];
