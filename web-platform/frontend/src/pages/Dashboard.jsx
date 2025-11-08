@@ -17,17 +17,21 @@ function Dashboard() {
   const [markers, setMarkers] = useState([]);
   const [chartLoading, setChartLoading] = useState(true);
   const [selectedTimeframe, setSelectedTimeframe] = useState(5); // M5 por padrão
+  const [refreshInterval, setRefreshInterval] = useState(10000); // 10s por padrão
 
+  // Atualização automática baseada no refreshInterval
   useEffect(() => {
     loadData();
     loadChartData();
-    const interval = setInterval(loadData, 10000); // Atualiza a cada 10s
-    const chartInterval = setInterval(loadChartData, 10000); // Atualiza grafico a cada 10s
+    
+    const interval = setInterval(loadData, refreshInterval);
+    const chartInterval = setInterval(loadChartData, refreshInterval);
+    
     return () => {
       clearInterval(interval);
       clearInterval(chartInterval);
     };
-  }, []);
+  }, [refreshInterval]); // Recria intervalos quando mudar
 
   // Recarregar gráfico quando timeframe mudar
   useEffect(() => {
@@ -89,6 +93,18 @@ function Dashboard() {
     { value: 240, label: 'H4', name: '4 Horas' },
     { value: 1440, label: 'D1', name: 'Diário' },
   ];
+
+  // Intervalos de atualização disponíveis
+  const refreshIntervals = [
+    { value: 5000, label: '5s', name: '5 segundos', icon: '⚡' },
+    { value: 10000, label: '10s', name: '10 segundos', icon: '🔄' },
+    { value: 30000, label: '30s', name: '30 segundos', icon: '📊' },
+    { value: 60000, label: '60s', name: '1 minuto', icon: '🕐' },
+  ];
+
+  const handleRefreshIntervalChange = (interval) => {
+    setRefreshInterval(interval);
+  };
 
   const columns = [
     {
@@ -186,6 +202,21 @@ function Dashboard() {
                     </Button>
                   ))}
                 </Space.Compact>
+                
+                <Space.Compact>
+                  {refreshIntervals.map((ri) => (
+                    <Button
+                      key={ri.value}
+                      type={refreshInterval === ri.value ? 'primary' : 'default'}
+                      size="small"
+                      onClick={() => handleRefreshIntervalChange(ri.value)}
+                      title={`Atualizar a cada ${ri.name}`}
+                    >
+                      {ri.icon} {ri.label}
+                    </Button>
+                  ))}
+                </Space.Compact>
+                
                 <a onClick={loadChartData}>Atualizar</a>
               </Space>
             }
