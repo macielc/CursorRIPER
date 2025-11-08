@@ -188,16 +188,21 @@ function Settings() {
             value={selectedStrategy?.strategy_key}
             onChange={handleStrategyChange}
             size="large"
+            placeholder="Selecione uma estrategia..."
+            showSearch
+            filterOption={(input, option) =>
+              option.children.toString().toLowerCase().includes(input.toLowerCase())
+            }
           >
             {strategies.map(s => (
               <Option key={s.strategy_key} value={s.strategy_key}>
                 <Space>
                   <SettingOutlined />
                   <span>
-                    <strong>{s.display_name}</strong>
-                    {s.description && (
+                    <strong>{s.name}</strong>
+                    {s.metadata?.description && (
                       <Text type="secondary" style={{ marginLeft: 8, fontSize: 12 }}>
-                        - {s.description}
+                        - {s.metadata.description}
                       </Text>
                     )}
                   </span>
@@ -231,7 +236,7 @@ function Settings() {
 
       {selectedStrategy && (
         <Card 
-          title={`Parametros: ${selectedStrategy.display_name}`}
+          title={`Parametros: ${selectedStrategy.name}`}
           extra={
             <Button 
               icon={<ReloadOutlined />} 
