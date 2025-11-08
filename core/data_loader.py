@@ -100,8 +100,10 @@ class DataLoader:
                 print(f"  Filtro data inicial: {start_date}")
             
             if end_date:
-                self.df = self.df[self.df['time'] <= pd.to_datetime(end_date)]
-                print(f"  Filtro data final: {end_date}")
+                # FIX: Adicionar 1 dia para incluir todo o dia final (00:00:00 -> 23:59:59)
+                end_date_inclusive = pd.to_datetime(end_date) + pd.Timedelta(days=1)
+                self.df = self.df[self.df['time'] < end_date_inclusive]
+                print(f"  Filtro data final: {end_date} (inclusivo)")
             
             filtered_len = len(self.df)
             print(f"  Dados filtrados: {original_len:,} -> {filtered_len:,} candles")
@@ -124,7 +126,10 @@ class DataLoader:
             self.df = self.df.drop(columns=['_hour'])
             
             filtered_len = len(self.df)
-            print(f"  Filtro horário 9h-15h: {original_len:,} -> {filtered_len:,} candles ({100*filtered_len/original_len:.1f}%)")
+            if original_len > 0:
+                print(f"  Filtro horário 9h-15h: {original_len:,} -> {filtered_len:,} candles ({100*filtered_len/original_len:.1f}%)")
+            else:
+                print(f"  Filtro horário 9h-15h: Nenhum dado disponível após filtro de data")
         
         print(f"  Candles carregados: {len(self.df):,}")
         print(f"  Período: {self.df['time'].min()} a {self.df['time'].max()}")
