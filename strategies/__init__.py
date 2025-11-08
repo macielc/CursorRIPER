@@ -18,8 +18,8 @@ def get_strategy(strategy_name: str):
         ValueError: Se estratégia não encontrada
     """
     if strategy_name == 'barra_elefante':
-        from strategies.barra_elefante.strategy import BarraElefanteStrategy
-        return BarraElefanteStrategy
+        from strategies.barra_elefante.strategy import BarraElefante
+        return BarraElefante
     # elif strategy_name == 'power_breakout':
     #     from strategies.power_breakout.strategy import PowerBreakoutStrategy
     #     return PowerBreakoutStrategy
