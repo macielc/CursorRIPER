@@ -328,19 +328,19 @@ function Settings() {
                 .map(([key, value]) => renderParameterInput(key, value))
               }
 
-              <Divider orientation="left" style={{ marginTop: 40, marginBottom: 24 }}>Horarios de Operacao</Divider>
+              <Divider orientation="left" style={{ marginTop: 56 }}>Horarios de Operacao</Divider>
               {Object.entries(parameters)
                 .filter(([key]) => key.includes('horario') || key.includes('minuto'))
                 .map(([key, value]) => renderParameterInput(key, value))
               }
 
-              <Divider orientation="left" style={{ marginTop: 40, marginBottom: 24 }}>Stop Loss e Take Profit</Divider>
+              <Divider orientation="left" style={{ marginTop: 56 }}>Stop Loss e Take Profit</Divider>
               {Object.entries(parameters)
                 .filter(([key]) => key.includes('sl_') || key.includes('tp_') || key.includes('atr'))
                 .map(([key, value]) => renderParameterInput(key, value))
               }
 
-              <Divider orientation="left" style={{ marginTop: 40, marginBottom: 24 }}>Outros Parametros</Divider>
+              <Divider orientation="left" style={{ marginTop: 56 }}>Outros Parametros</Divider>
               {Object.entries(parameters)
                 .filter(([key]) => 
                   !key.includes('amplitude') && 
