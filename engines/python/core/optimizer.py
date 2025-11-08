@@ -123,7 +123,8 @@ class MassiveOptimizer:
         import sys
         from pathlib import Path
         
-        strategies_path = Path(__file__).parent.parent / 'strategies'
+        # Caminho correto: engines/python/core -> engines/python -> engines -> raiz
+        strategies_path = Path(__file__).parent.parent.parent.parent / 'strategies'
         if str(strategies_path) not in sys.path:
             sys.path.insert(0, str(strategies_path))
         
