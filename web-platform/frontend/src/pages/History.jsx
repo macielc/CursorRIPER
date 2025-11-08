@@ -139,13 +139,34 @@ function History() {
       render: (value) => value ? value.toFixed(2) : '-'
     },
     {
+      title: 'Resultado',
+      dataIndex: 'pnl_points',
+      key: 'resultado',
+      align: 'center',
+      render: (value) => {
+        if (value === null || value === undefined) return '-';
+        const isGain = value > 0;
+        const color = isGain ? '#52c41a' : '#ff4d4f'; // Verde: #52c41a, Vermelho: #ff4d4f
+        const text = isGain ? 'GAIN' : 'LOSS';
+        return (
+          <span style={{ 
+            color: color, 
+            fontWeight: 600,
+            fontSize: '13px'
+          }}>
+            {text}
+          </span>
+        );
+      }
+    },
+    {
       title: 'PnL',
       dataIndex: 'pnl_points',
       key: 'pnl_points',
       render: (value) => {
         if (value === null || value === undefined) return '-';
-        const color = value > 0 ? 'green' : value < 0 ? 'red' : 'default';
-        return <span style={{ color }}>{value.toFixed(2)}</span>;
+        const color = value > 0 ? '#52c41a' : value < 0 ? '#ff4d4f' : 'default';
+        return <span style={{ color, fontWeight: 500 }}>{value.toFixed(2)}</span>;
       }
     },
     {
