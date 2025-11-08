@@ -322,25 +322,25 @@ function Settings() {
           >
             {/* Parametros organizados em secoes */}
             <div style={{ maxWidth: 800 }}>
-              <Divider orientation="left">Parametros de Deteccao</Divider>
+              <Divider orientation="left" style={{ marginTop: 0 }}>Parametros de Deteccao</Divider>
               {Object.entries(parameters)
                 .filter(([key]) => key.includes('amplitude') || key.includes('volume') || key.includes('sombra') || key.includes('lookback'))
                 .map(([key, value]) => renderParameterInput(key, value))
               }
 
-              <Divider orientation="left">Horarios de Operacao</Divider>
+              <Divider orientation="left" style={{ marginTop: 40, marginBottom: 24 }}>Horarios de Operacao</Divider>
               {Object.entries(parameters)
                 .filter(([key]) => key.includes('horario') || key.includes('minuto'))
                 .map(([key, value]) => renderParameterInput(key, value))
               }
 
-              <Divider orientation="left">Stop Loss e Take Profit</Divider>
+              <Divider orientation="left" style={{ marginTop: 40, marginBottom: 24 }}>Stop Loss e Take Profit</Divider>
               {Object.entries(parameters)
                 .filter(([key]) => key.includes('sl_') || key.includes('tp_') || key.includes('atr'))
                 .map(([key, value]) => renderParameterInput(key, value))
               }
 
-              <Divider orientation="left">Outros Parametros</Divider>
+              <Divider orientation="left" style={{ marginTop: 40, marginBottom: 24 }}>Outros Parametros</Divider>
               {Object.entries(parameters)
                 .filter(([key]) => 
                   !key.includes('amplitude') && 
