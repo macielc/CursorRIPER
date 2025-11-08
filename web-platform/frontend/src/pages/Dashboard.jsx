@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Statistic, Table, Typography, Spin, Alert } from 'antd';
+import { Card, Row, Col, Statistic, Table, Typography, Spin, Alert, Button, Space } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { ordersAPI, strategiesAPI } from '../services/api';
 import TradingViewChart from '../components/TradingViewChart';
@@ -16,6 +16,7 @@ function Dashboard() {
   const [candlesData, setCandlesData] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [chartLoading, setChartLoading] = useState(true);
+  const [selectedTimeframe, setSelectedTimeframe] = useState(5); // M5 por padrão
 
   useEffect(() => {
     loadData();
@@ -27,6 +28,11 @@ function Dashboard() {
       clearInterval(chartInterval);
     };
   }, []);
+
+  // Recarregar gráfico quando timeframe mudar
+  useEffect(() => {
+    loadChartData();
+  }, [selectedTimeframe]);
 
   const loadData = async () => {
     try {
@@ -54,7 +60,7 @@ function Dashboard() {
       
       // Buscar candles e marcadores
       const [candlesRes, markersRes] = await Promise.all([
-        axios.get('http://localhost:8000/api/charts/candles?symbol=WIN$&timeframe=5&bars=500'),
+        axios.get(`http://localhost:8000/api/charts/candles?symbol=WIN$&timeframe=${selectedTimeframe}&bars=500`),
         axios.get('http://localhost:8000/api/charts/markers?limit=100')
       ]);
       
@@ -67,6 +73,22 @@ function Dashboard() {
       setChartLoading(false);
     }
   };
+
+  const handleTimeframeChange = (timeframe) => {
+    setSelectedTimeframe(timeframe);
+  };
+
+  // Mapa de timeframes disponiveis
+  const timeframes = [
+    { value: 1, label: 'M1', name: '1 Minuto' },
+    { value: 2, label: 'M2', name: '2 Minutos' },
+    { value: 5, label: 'M5', name: '5 Minutos' },
+    { value: 15, label: 'M15', name: '15 Minutos' },
+    { value: 30, label: 'M30', name: '30 Minutos' },
+    { value: 60, label: 'H1', name: '1 Hora' },
+    { value: 240, label: 'H4', name: '4 Horas' },
+    { value: 1440, label: 'D1', name: 'Diário' },
+  ];
 
   const columns = [
     {
@@ -144,8 +166,29 @@ function Dashboard() {
       <Row style={{ marginBottom: 24 }}>
         <Col span={24}>
           <Card 
-            title="WIN$ - M5 (500 candles)" 
-            extra={<a onClick={loadChartData}>Atualizar</a>}
+            title={
+              <Space>
+                <span>WIN$ - {timeframes.find(tf => tf.value === selectedTimeframe)?.label} (500 candles)</span>
+              </Space>
+            }
+            extra={
+              <Space>
+                <Space.Compact>
+                  {timeframes.map((tf) => (
+                    <Button
+                      key={tf.value}
+                      type={selectedTimeframe === tf.value ? 'primary' : 'default'}
+                      size="small"
+                      onClick={() => handleTimeframeChange(tf.value)}
+                      title={tf.name}
+                    >
+                      {tf.label}
+                    </Button>
+                  ))}
+                </Space.Compact>
+                <a onClick={loadChartData}>Atualizar</a>
+              </Space>
+            }
             loading={chartLoading}
           >
             {candlesData.length > 0 ? (
