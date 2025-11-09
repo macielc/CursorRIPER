@@ -1,0 +1,38 @@
+{
+  "1 MES": {
+    "no_filter": {
+      "sharpe_original": 1.6649974377186298,
+      "sharpe_sem_outliers": -0.9396569019114566,
+      "aprovado": "nao"
+    },
+    "with_filter": {
+      "sharpe_original": 0.0,
+      "sharpe_sem_outliers": 0.0,
+      "aprovado": "nao"
+    }
+  },
+  "3 MESES": {
+    "no_filter": {
+      "sharpe_original": 3.8307136682358465,
+      "sharpe_sem_outliers": 2.5886438364960176,
+      "aprovado": "sim"
+    },
+    "with_filter": {
+      "sharpe_original": 0.0,
+      "sharpe_sem_outliers": 0.0,
+      "aprovado": "nao"
+    }
+  },
+  "6 MESES": {
+    "no_filter": {
+      "sharpe_original": 1.3017003618395069,
+      "sharpe_sem_outliers": -1.0009924492942912,
+      "aprovado": "nao"
+    },
+    "with_filter": {
+      "sharpe_original": 0.4793201939147024,
+      "sharpe_sem_outliers": -1.2664286624502268,
+      "aprovado": "nao"
+    }
+  }
+}

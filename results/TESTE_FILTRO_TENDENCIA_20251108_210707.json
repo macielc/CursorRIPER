@@ -1,0 +1,18 @@
+{
+  "1 SEMANA": {
+    "no_filter": {
+      "sharpe_original": 0,
+      "sharpe_sem_outliers": 0,
+      "aprovado": false
+    },
+    "with_filter": {
+      "sharpe_original": 0,
+      "sharpe_sem_outliers": 0,
+      "aprovado": false
+    }
+  },
+  "1 MES": {
+    "no_filter": {
+      "sharpe_original": 1.6649974377186298,
+      "sharpe_sem_outliers": -0.9396569019114566,
+      "aprovado": 
