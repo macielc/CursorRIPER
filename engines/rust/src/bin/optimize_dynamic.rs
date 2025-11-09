@@ -394,8 +394,11 @@ fn main() {
     );
     let mut wtr = csv::Writer::from_path(&filename).expect("Falha ao criar CSV");
     
-    // Header
+    // Header (parâmetros + métricas)
     wtr.write_record(&[
+        "min_amplitude_mult", "min_volume_mult", "max_sombra_pct", "lookback_amplitude",
+        "horario_inicio", "minuto_inicio", "horario_fim", "minuto_fim",
+        "horario_fechamento", "minuto_fechamento", "sl_atr_mult", "tp_atr_mult", "usar_trailing",
         "success", "total_return", "total_return_pct", "total_trades",
         "win_rate", "profit_factor", "sharpe_ratio", "max_drawdown_pct"
     ]).expect("Falha header");
@@ -468,9 +471,23 @@ fn main() {
             println!("\n[TRADES] Salvos {} trades em: {}", results[0].trades.len(), trades_file);
         }
         
-        // Salvar métricas agregadas (como antes)
-        for result in &results {
+        // Salvar parâmetros + métricas
+        for (idx, result) in results.iter().enumerate() {
+            let params = &batch[idx];
             wtr.write_record(&[
+                params.min_amplitude_mult.to_string(),
+                params.min_volume_mult.to_string(),
+                params.max_sombra_pct.to_string(),
+                params.lookback_amplitude.to_string(),
+                params.horario_inicio.to_string(),
+                params.minuto_inicio.to_string(),
+                params.horario_fim.to_string(),
+                params.minuto_fim.to_string(),
+                params.horario_fechamento.to_string(),
+                params.minuto_fechamento.to_string(),
+                params.sl_atr_mult.to_string(),
+                params.tp_atr_mult.to_string(),
+                params.usar_trailing.to_string(),
                 result.success.to_string(),
                 result.metrics.total_return.to_string(),
                 result.metrics.total_return_pct.to_string(),

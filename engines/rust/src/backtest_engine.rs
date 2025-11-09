@@ -149,11 +149,34 @@ impl BacktestEngine {
             }
 
             // Verificar saída se tem posição
-            if let Some(pos) = &position {
+            if let Some(mut pos) = position.take() {
                 let candle = &self.candles[i];
                 let mut exit_signal = false;
                 let mut exit_price = 0.0;
                 let mut exit_reason = ExitReason::StopLoss;
+
+                // TRAILING STOP: Atualizar SL se em lucro
+                if params.usar_trailing {
+                    let atr = candle.atr;
+                    match pos.trade_type {
+                        TradeType::Long => {
+                            // Calcular novo SL baseado no preço atual - ATR
+                            let trailing_sl = candle.close - (atr * params.sl_atr_mult);
+                            // Só atualiza se o novo SL for maior (mais proteção)
+                            if trailing_sl > pos.sl && candle.close > pos.entry_price {
+                                pos.sl = trailing_sl;
+                            }
+                        }
+                        TradeType::Short => {
+                            // Calcular novo SL baseado no preço atual + ATR
+                            let trailing_sl = candle.close + (atr * params.sl_atr_mult);
+                            // Só atualiza se o novo SL for menor (mais proteção)
+                            if trailing_sl < pos.sl && candle.close < pos.entry_price {
+                                pos.sl = trailing_sl;
+                            }
+                        }
+                    }
+                }
 
                 match pos.trade_type {
                     TradeType::Long => {
@@ -204,20 +227,38 @@ impl BacktestEngine {
                         });
                     }
 
-                    position = None;
+                    // position já é None
+                } else {
+                    // Restaurar posição se não saiu
+                    position = Some(pos);
                 }
             }
 
             // Detectar novos sinais (SLIPPAGE: entrada na próxima barra)
+            // VERIFICAR HORÁRIO: Só aceita novos sinais ATÉ horario_fim
             if position.is_none() && pending_entry.is_none() {
-                if signals.entries_long[i] {
-                    pending_entry = Some(PendingEntry {
-                        trade_type: TradeType::Long,
-                    });
-                } else if signals.entries_short[i] {
-                    pending_entry = Some(PendingEntry {
-                        trade_type: TradeType::Short,
-                    });
+                let hora = self.candles[i].hour;
+                let minuto = self.candles[i].minute;
+                
+                // Verifica se ainda está dentro do horário de entrada
+                let dentro_horario_entrada = if hora < params.horario_fim {
+                    true
+                } else if hora == params.horario_fim {
+                    minuto <= params.minuto_fim
+                } else {
+                    false
+                };
+                
+                if dentro_horario_entrada {
+                    if signals.entries_long[i] {
+                        pending_entry = Some(PendingEntry {
+                            trade_type: TradeType::Long,
+                        });
+                    } else if signals.entries_short[i] {
+                        pending_entry = Some(PendingEntry {
+                            trade_type: TradeType::Short,
+                        });
+                    }
                 }
             }
         }

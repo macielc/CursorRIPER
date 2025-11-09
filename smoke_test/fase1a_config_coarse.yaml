@@ -1,0 +1,55 @@
+# =====================================================
+# FASE 1A: SMOKE TEST COARSE
+# =====================================================
+# Grid espaçado para identificar regiões promissoras
+# Total: 4 × 3 × 4 × 3 × 2 × 2 × 2 × 3 × 3 × 2 = 41.472 combinações
+# Tempo estimado: 5-30 minutos (24 cores)
+
+strategy_name: barra_elefante
+
+parameters:
+  min_amplitude_mult:
+    values: [1.0, 2.0, 3.0, 4.0]
+  
+  min_volume_mult:
+    values: [0.0, 1.5, 3.0]
+  
+  max_sombra_pct:
+    values: [0.0, 0.25, 0.50, 1.0]
+  
+  lookback_amplitude:
+    values: [5, 15, 30]
+  
+  horario_inicio:
+    values: [9, 10]
+  
+  minuto_inicio:
+    values: [0]  # Fixo para simplificar
+  
+  horario_fim:
+    values: [12, 14]
+  
+  minuto_fim:
+    values: [0]  # Fixo para simplificar
+  
+  horario_fechamento:
+    values: [14, 15]
+  
+  minuto_fechamento:
+    values: [0]  # Fixo para simplificar
+  
+  sl_atr_mult:
+    values: [1.0, 2.0, 3.0]
+  
+  tp_atr_mult:
+    values: [2.0, 3.0, 5.0]
+  
+  usar_trailing:
+    values: [false, true]
+
+# Validações lógicas
+validations:
+  - "horario_inicio < horario_fim"
+  - "horario_fim <= horario_fechamento"
+  - "tp_atr_mult > sl_atr_mult"
+

@@ -1,0 +1,554 @@
+{
+  "3_MESES": [
+    {
+      "combo": "A_TP3.0_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 2,
+      "pnl": 428.7142639160156,
+      "sharpe": 3.8490260808139536,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.0_ADX20",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 20,
+      "trades": 2,
+      "pnl": 428.7142639160156,
+      "sharpe": 3.8490260808139536,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.0_ADX25",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 25,
+      "trades": 2,
+      "pnl": 428.7142639160156,
+      "sharpe": 3.8490260808139536,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.5_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 2,
+      "pnl": 611.7856903076172,
+      "sharpe": 4.977309184841993,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.5_ADX20",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 20,
+      "trades": 2,
+      "pnl": 611.7856903076172,
+      "sharpe": 4.977309184841993,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.5_ADX25",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 25,
+      "trades": 2,
+      "pnl": 611.7856903076172,
+      "sharpe": 4.977309184841993,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP4.0_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 2,
+      "pnl": 794.8571166992188,
+      "sharpe": 5.912032076486807,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP4.0_ADX20",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 20,
+      "trades": 2,
+      "pnl": 794.8571166992188,
+      "sharpe": 5.912032076486807,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP4.0_ADX25",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 25,
+      "trades": 2,
+      "pnl": 794.8571166992188,
+      "sharpe": 5.912032076486807,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP5.0_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 2,
+      "pnl": 1160.9999694824219,
+      "sharpe": 7.370857722321488,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP5.0_ADX20",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 20,
+      "trades": 2,
+      "pnl": 1160.9999694824219,
+      "sharpe": 7.370857722321488,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP5.0_ADX25",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 25,
+      "trades": 2,
+      "pnl": 1160.9999694824219,
+      "sharpe": 7.370857722321488,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP3.0_Trail2.0_ADX15",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 15,
+      "trades": 2,
+      "pnl": 428.7142639160156,
+      "sharpe": 3.8490260808139536,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP3.0_Trail2.0_ADX20",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 20,
+      "trades": 2,
+      "pnl": 428.7142639160156,
+      "sharpe": 3.8490260808139536,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP3.0_Trail2.0_ADX25",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 25,
+      "trades": 2,
+      "pnl": 428.7142639160156,
+      "sharpe": 3.8490260808139536,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP4.0_Trail2.5_ADX15",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 15,
+      "trades": 2,
+      "pnl": 794.8571166992188,
+      "sharpe": 5.912032076486807,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP4.0_Trail2.5_ADX20",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 20,
+      "trades": 2,
+      "pnl": 794.8571166992188,
+      "sharpe": 5.912032076486807,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP4.0_Trail2.5_ADX25",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 25,
+      "trades": 2,
+      "pnl": 794.8571166992188,
+      "sharpe": 5.912032076486807,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP5.0_Trail3.0_ADX15",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 15,
+      "trades": 2,
+      "pnl": 1160.9999694824219,
+      "sharpe": 7.370857722321488,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP5.0_Trail3.0_ADX20",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 20,
+      "trades": 2,
+      "pnl": 1160.9999694824219,
+      "sharpe": 7.370857722321488,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP5.0_Trail3.0_ADX25",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 25,
+      "trades": 2,
+      "pnl": 1160.9999694824219,
+      "sharpe": 7.370857722321488,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horainicio_ADX20",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 20,
+      "trades": 1,
+      "pnl": -669.7142944335938,
+      "sharpe": 0.0,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horainicio_ADX25",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 25,
+      "trades": 1,
+      "pnl": -669.7142944335938,
+      "sharpe": 0.0,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horafim_ADX20",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 20,
+      "trades": 2,
+      "pnl": 794.8571166992188,
+      "sharpe": 5.912032076486807,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horafim_ADX25",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 25,
+      "trades": 2,
+      "pnl": 794.8571166992188,
+      "sharpe": 5.912032076486807,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horaambos_ADX20",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 20,
+      "trades": 1,
+      "pnl": -669.7142944335938,
+      "sharpe": 0.0,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horaambos_ADX25",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 25,
+      "trades": 1,
+      "pnl": -669.7142944335938,
+      "sharpe": 0.0,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    }
+  ],
+  "6_MESES": [
+    {
+      "combo": "A_TP3.0_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 6,
+      "pnl": 284.14288330078125,
+      "sharpe": 1.0655073528077041,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.0_ADX20",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 20,
+      "trades": 6,
+      "pnl": 284.14288330078125,
+      "sharpe": 1.0655073528077041,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.0_ADX25",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 25,
+      "trades": 6,
+      "pnl": 284.14288330078125,
+      "sharpe": 1.0655073528077041,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.5_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 6,
+      "pnl": 629.7857360839844,
+      "sharpe": 2.116968263793376,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.5_ADX20",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 20,
+      "trades": 6,
+      "pnl": 629.7857360839844,
+      "sharpe": 2.116968263793376,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP3.5_ADX25",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 25,
+      "trades": 6,
+      "pnl": 629.7857360839844,
+      "sharpe": 2.116968263793376,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP4.0_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 6,
+      "pnl": 975.4285888671875,
+      "sharpe": 2.970743366262082,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP4.0_ADX20",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 20,
+      "trades": 6,
+      "pnl": 975.4285888671875,
+      "sharpe": 2.970743366262082,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP4.0_ADX25",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 25,
+      "trades": 6,
+      "pnl": 975.4285888671875,
+      "sharpe": 2.970743366262082,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP5.0_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 6,
+      "pnl": 1666.7142944335938,
+      "sharpe": 4.2724344029492265,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP5.0_ADX20",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 20,
+      "trades": 6,
+      "pnl": 1666.7142944335938,
+      "sharpe": 4.2724344029492265,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "A_TP5.0_ADX25",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 25,
+      "trades": 6,
+      "pnl": 1666.7142944335938,
+      "sharpe": 4.2724344029492265,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP3.0_Trail2.0_ADX15",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 15,
+      "trades": 6,
+      "pnl": 284.14288330078125,
+      "sharpe": 1.0655073528077041,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP3.0_Trail2.0_ADX20",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 20,
+      "trades": 6,
+      "pnl": 284.14288330078125,
+      "sharpe": 1.0655073528077041,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP3.0_Trail2.0_ADX25",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 25,
+      "trades": 6,
+      "pnl": 284.14288330078125,
+      "sharpe": 1.0655073528077041,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP4.0_Trail2.5_ADX15",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 15,
+      "trades": 6,
+      "pnl": 975.4285888671875,
+      "sharpe": 2.970743366262082,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP4.0_Trail2.5_ADX20",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 20,
+      "trades": 6,
+      "pnl": 975.4285888671875,
+      "sharpe": 2.970743366262082,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP4.0_Trail2.5_ADX25",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 25,
+      "trades": 6,
+      "pnl": 975.4285888671875,
+      "sharpe": 2.970743366262082,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP5.0_Trail3.0_ADX15",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 15,
+      "trades": 6,
+      "pnl": 1666.7142944335938,
+      "sharpe": 4.2724344029492265,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP5.0_Trail3.0_ADX20",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 20,
+      "trades": 6,
+      "pnl": 1666.7142944335938,
+      "sharpe": 4.2724344029492265,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "B_TP5.0_Trail3.0_ADX25",
+      "group": "B_Filtro+TP+Trailing",
+      "adx_threshold": 25,
+      "trades": 6,
+      "pnl": 1666.7142944335938,
+      "sharpe": 4.2724344029492265,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horainicio_ADX20",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 20,
+      "trades": 4,
+      "pnl": 2937.857208251953,
+      "sharpe": 8.891375238009953,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horainicio_ADX25",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 25,
+      "trades": 4,
+      "pnl": 2937.857208251953,
+      "sharpe": 8.891375238009953,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horafim_ADX20",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 20,
+      "trades": 6,
+      "pnl": 975.4285888671875,
+      "sharpe": 2.970743366262082,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horafim_ADX25",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 25,
+      "trades": 6,
+      "pnl": 975.4285888671875,
+      "sharpe": 2.970743366262082,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horaambos_ADX20",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 20,
+      "trades": 4,
+      "pnl": 2937.857208251953,
+      "sharpe": 8.891375238009953,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    },
+    {
+      "combo": "C_TP4_Trail_Horaambos_ADX25",
+      "group": "C_Filtro+TP+Trailing+Horario",
+      "adx_threshold": 25,
+      "trades": 4,
+      "pnl": 2937.857208251953,
+      "sharpe": 8.891375238009953,
+      "fase5_aprovado": false,
+      "fase5_sharpe_sem_outliers": 0.0
+    }
+  ],
+  "1_ANO": [
+    {
+      "combo": "A_TP3.0_ADX15",
+      "group": "A_Filtro+TP",
+      "adx_threshold": 15,
+      "trades": 45,
+      "pnl": -2213.142791748047,
+      "sharpe": -1.128811034858799,
+      "fase5_aprovado": 
